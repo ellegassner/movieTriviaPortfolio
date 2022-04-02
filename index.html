@@ -15,8 +15,8 @@
 
 <body>
     <header>
+        <a href="#quizInstructions" class="skipLink">Skip to Quiz Instructions</a>
         <nav>
-            <a href="#" class="skiplink"></a>
             <div class="wrapper">
                 <a href="./index.html" class="logo"><i class="fa-solid fa-clapperboard"></i></a>
             </div>
@@ -27,12 +27,12 @@
         <div class="homeParent">
             <h1>Challenge yourself with this quiz!</h1>
 
-            <div class="quizInstructions">
+            <div class="quizInstructions" id="quizInstructions">
                 <h3>Quiz instructions!</h3>
                 <p>Answer 10 questions correctly and you win!</p>
                 <p>Choose the date that the movie was released.</p>
                 <form action="POST">
-                    <label for="userName" class="userName"></label>
+                    <label for="userName" class="userName">Enter Your Name:</label>
                     <input type="text" id="userName" name="userName">
                 </form>
                 <p>Ready to play? Good luck!</p>

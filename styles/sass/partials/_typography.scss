@@ -6,19 +6,28 @@ body {
     font-family: $mainFont;
     font-size: 2rem;
     font-weight: 300;
-    line-height: 8rem;
+    line-height: 3rem;
     letter-spacing: 2px;
     color: $mainFontColor;
     background-color: $backgroundColor;
+    text-align: center;
+}
+
+a,
+.userName {
+    text-decoration: none;
+    font-family: $mainFont;
+    color: $mainFontColor;
+    z-index: 30;
 }
 
 .skipLink {
     position: absolute;
     left: -500px;
-    top: 5px;
+    top: 0px;
     z-index: 90;
     background-color: $mainFontColor;
-    color: $backgroundColor;
+    color: $styleFontColor;
 }
 
 .skipLink:focus {
@@ -28,6 +37,7 @@ body {
 h1 {
     font-family: $styleFont;
     font-size: 6rem;
+    line-height: 8rem;
     color: $styleFontColor;
     text-align: center;
 }
@@ -36,13 +46,8 @@ h2,
 h3 {
     font-family: $mainFont;
     font-size: 4rem;
-}
-
-a,
-label a {
-    text-decoration: none;
-    font-family: $mainFont;
-    color: $mainFontColor;
+    line-height: 6rem;
+    text-align: center;
 }
 
 .footerParent a,

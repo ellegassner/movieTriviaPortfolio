@@ -1,0 +1,29 @@
+.quizChild {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+
+    .moviePoster {
+        flex-basis: 30%;
+    }
+
+    .quizOptions {
+        flex-basis: 60%;
+
+        .quizChoices {
+            display: flex;
+            justify-content: flex-start;
+            margin-left: 100px;
+
+            .choiceOption {
+                background-color: $correctAnswerColor;
+                margin-right: 10px;
+            }
+        }
+
+        .submitOptions {
+            margin-left: 100px;
+        }
+    }
+}
