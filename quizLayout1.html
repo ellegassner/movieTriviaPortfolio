@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Roboto:ital,wght@0,300;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/1296eacb3d.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./styles/styles.css">
   <title>Quiz</title>
 </head>
 
@@ -13,7 +18,7 @@
     <nav>
       <a href="#" class="skiplink"></a>
       <div class="wrapper">
-        <a href="./index.html" class="logo"><i>LOGO</i></a>
+        <a href="./index.html" class="logo"><i class="fa-solid fa-clapperboard"></i></a>
       </div>
     </nav>
   </header>
@@ -26,8 +31,8 @@
     </div>
     <div class="quizParent">
       <h2>When was the release date for this movie poster shown?</h2>
-      <div class="quizchild">
-        <img src="" alt="" id="moviePoster">
+      <div class="quizChild">
+        <img src="" alt="" id="moviePoster" class="moviePoster">
         <div class="quizOptions">
           <div class="quizChoices">
             <p class="choiceOption">1</p>
@@ -49,10 +54,10 @@
             <p class="choiceOption">5</p>
             <p class="choiceText">vvv</p>
           </div>
-        </div>
-        <div class="submitOptions">
-          <button>Confirm</button>
-          <button>Next Question</button>
+          <div class="submitOptions">
+            <button>Confirm</button>
+            <button>Next Question</button>
+          </div>
         </div>
       </div>
     </div>
