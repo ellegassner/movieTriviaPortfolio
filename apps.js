@@ -7,11 +7,10 @@
         - Final url: https://api.themoviedb.org/3/movie/76341?api_key=<<api_key>>
     1.2 Get user's name to invite to play quiz game --(STRETCH)
 2. Use Data (inside a loop)
-    2. Determine our questions and append to page
+    2. Determine our questions
     2. Select one random movie
-    2. Get correct answer and store as a variable
-    2. Select 4 random movies as "incorrect answers/decoys"
-            Get 4 incorrect answers from random movies and store in another variable
+    2. Get correct answer and store as a array
+    2. Get 4 incorrect answers and store in another array
     2. Do a check with user answer for correct stored variable answer
         - If answer is correct them score++
         - Go to next question
@@ -28,13 +27,84 @@
 
 
 
-
+// Creating the Namespace Object
 const app = {};
+//#region specific functions
+app.getRandomNumber = (maxId) => {
+    return Math.floor(Math.random() * maxId);
+}
 
-app.apiUrl = "https://api.themoviedb.org/3/movie/76341";
-app.apiKey = "00c9d839153d1b6c3b376514c7334065";
+app.getRandomNumberFromInterval = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
-app.getMovies = () => {
+app.getUserName = () => {
+    app.userName = app.userNameElement.value;
+    // console.log(app.userName);
+    return app.userName;
+}
+
+app.getQuestion = () => {
+    const index = app.getRandomNumber(app.questions.length - 1);
+    return app.questions[index];
+
+}
+
+//#endregion
+
+//#region The Game
+app.startGame = () => {
+    //event listener for the start button
+    app.startButtonElement.addEventListener("click", function(){
+        // 1.2 get the userName
+        app.getUserName();
+
+        // 2. use Data
+        for(let i = 1; i <= 10; i++){
+            // console.log(`question ${i}`);
+            // our code will be here
+        }
+
+        // 2.1 get Question
+        const quest = app.getQuestion();
+        console.log(quest);
+
+        // 2.2 select Random Movie
+        const movie = app.getMovie();
+        console.log("movies", movie);
+
+        // 2.3 storing correct answer in a variable
+        if(quest === app.questionType1){
+            const answer = 1985;
+            const answerArray = [answer];
+            console.log(answerArray);
+            console.log("type1");
+
+            // generate for incorrect answers
+            for(let j = 1; j < 5; j++){
+                const newWrongAnswer = app.getRandomNumberFromInterval(answer-10, answer+10);
+                // needs to check if wrong answer already exists in the array
+                while (answerArray.includes(newWrongAnswer)){
+                    newWrongAnswer = app.getRandomNumberFromInterval(answer-10, answer+10);
+                }
+                answerArray.push(newWrongAnswer);
+            }
+            console.log(answerArray);
+
+        } else {
+            console.log("otherType");
+        }
+    })
+}
+//#endregion
+
+
+
+app.getMovie = () => {
+    app.movieId = app.getRandomNumber(200000);
+    app.apiUrl = `https://api.themoviedb.org/3/movie/${app.movieId}`;
+    app.apiKey = "00c9d839153d1b6c3b376514c7334065";
+    
     const url = new URL(app.apiUrl);
     url.search = new URLSearchParams({
         api_key: app.apiKey,
@@ -46,11 +116,33 @@ app.getMovies = () => {
         })
         .then((jsonResponse) => {
             console.log(jsonResponse);
+            // console.log(jsonResponse.original_title);
+            // console.log(jsonResponse.release_date);
+            // console.log(jsonResponse.release_date.substring(0, 4));
+            // console.log(parseInt(jsonResponse.release_date.substring(0, 4)) + 1);
+            return jsonResponse;
         })
 };
 
 app.init = () => {
-    app.getMovies();
+    app.userName;
+    app.userNameElement = document.querySelector('input');
+    app.startButtonElement = document.getElementById('startButton');
+    
+    app.questionType1 = "When was the release date for this movie poster shown?";
+    app.questionType2 = "abc";
+    app.questionType3 = "def";    
+    app.questionType4 = "ghi";
+
+    app.questions = [
+        app.questionType1,
+        app.questionType2,
+        app.questionType3,
+        app.questionType4,
+    ];
+
+    app.startGame();
+    // app.getMovie();
 }
 
 app.init();
