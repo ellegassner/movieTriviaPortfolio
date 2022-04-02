@@ -1,0 +1,52 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: $mainFont;
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 8rem;
+    letter-spacing: 2px;
+    color: $mainFontColor;
+    background-color: $backgroundColor;
+}
+
+.skipLink {
+    position: absolute;
+    left: -500px;
+    top: 5px;
+    z-index: 90;
+    background-color: $mainFontColor;
+    color: $backgroundColor;
+}
+
+.skipLink:focus {
+    left: 0;
+}
+
+h1 {
+    font-family: $styleFont;
+    font-size: 6rem;
+    color: $styleFontColor;
+    text-align: center;
+}
+
+h2,
+h3 {
+    font-family: $mainFont;
+    font-size: 4rem;
+}
+
+a,
+label a {
+    text-decoration: none;
+    font-family: $mainFont;
+    color: $mainFontColor;
+}
+
+.footerParent a,
+.footerParent p {
+    font-size: 1.5rem;
+    line-height: 3rem;
+}

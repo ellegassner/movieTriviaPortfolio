@@ -225,3 +225,62 @@ html {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 8rem;
+  letter-spacing: 2px;
+  color: linen;
+  background-color: #2a0a4f;
+}
+
+.skipLink {
+  position: absolute;
+  left: -500px;
+  top: 5px;
+  z-index: 90;
+  background-color: linen;
+  color: #2a0a4f;
+}
+
+.skipLink:focus {
+  left: 0;
+}
+
+h1 {
+  font-family: "Bungee Shade", cursive;
+  font-size: 6rem;
+  color: #eeab41;
+  text-align: center;
+}
+
+h2,
+h3 {
+  font-family: "Roboto", sans-serif;
+  font-size: 4rem;
+}
+
+a,
+label a {
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  color: linen;
+}
+
+.footerParent a,
+.footerParent p {
+  font-size: 1.5rem;
+  line-height: 3rem;
+}
+
+.wrapper {
+  width: 80%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
