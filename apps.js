@@ -75,6 +75,10 @@ app.startGame = () => {
         const movie = app.getMovie();
         console.log("movie", movie);
 
+        // selecting poster with random movie
+        const poster = app.getPoster();
+        console.log("poster", poster);
+
         // 2.3 storing correct answer in a variable
         if(quest === app.questionType1){
             const answer = 1985;
@@ -106,12 +110,13 @@ app.getMovie = () => {
     app.movieId = app.getRandomNumber(200000);
     app.apiUrl = `https://api.themoviedb.org/3/movie/${app.movieId}`;
     app.apiKey = "00c9d839153d1b6c3b376514c7334065";
+    
 
     const url = new URL(app.apiUrl);
     url.search = new URLSearchParams({
         api_key: app.apiKey,
     })
-
+    
     fetch(url)
         .then((response) => {
             return response.json();
@@ -126,6 +131,7 @@ app.getMovie = () => {
 
             const titleParent = document.querySelector('.homeParent');
             const randomTitle = document.createElement('p');
+
             randomTitle.innerHTML = `
                 <span>
                 ${jsonResponse.original_title}
@@ -134,6 +140,34 @@ app.getMovie = () => {
             titleParent.appendChild(randomTitle);
         })
 };
+
+app.getPoster = () => {
+    app.moviePosterUrl = `${app.apiUrl}/images`;
+
+    const posterUrl = new URL(app.moviePosterUrl);
+    posterUrl.search = new URLSearchParams({
+        api_key: app.apiKey,
+    })
+
+    fetch(posterUrl)
+        .then((response) => {
+            return response.json();
+        })
+        .then((jsonResponse) => {
+            // console.log("poster here!", jsonResponse.posters[0]);
+
+            const filePath = jsonResponse.posters[0].file_path;
+            const posterPath = `${posterUrl}${filePath}`;
+            console.log("posters!", posterPath);
+            // const posterParent = document.querySelector('.homeParent');
+            // const randomPoster = document.createElement('img');
+
+            // randomPoster.src = posterPath;
+            // randomPoster.alt = "random movie poster here";
+
+            // posterParent.appendChild(randomPoster);
+        })
+}
 
 app.init = () => {
     app.userName;
