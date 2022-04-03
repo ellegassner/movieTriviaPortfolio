@@ -47,10 +47,12 @@ app.getUserName = () => {
 app.getQuestion = () => {
     const index = app.getRandomNumber(app.questions.length - 1);
     return app.questions[index];
-
 }
 
+
 //#endregion
+
+
 
 //#region The Game
 app.startGame = () => {
@@ -71,7 +73,7 @@ app.startGame = () => {
 
         // 2.2 select Random Movie
         const movie = app.getMovie();
-        console.log("movies", movie);
+        console.log("movie", movie);
 
         // 2.3 storing correct answer in a variable
         if(quest === app.questionType1){
@@ -104,7 +106,7 @@ app.getMovie = () => {
     app.movieId = app.getRandomNumber(200000);
     app.apiUrl = `https://api.themoviedb.org/3/movie/${app.movieId}`;
     app.apiKey = "00c9d839153d1b6c3b376514c7334065";
-    
+
     const url = new URL(app.apiUrl);
     url.search = new URLSearchParams({
         api_key: app.apiKey,
@@ -115,12 +117,21 @@ app.getMovie = () => {
             return response.json();
         })
         .then((jsonResponse) => {
-            console.log(jsonResponse);
+            console.log (jsonResponse);
             // console.log(jsonResponse.original_title);
             // console.log(jsonResponse.release_date);
             // console.log(jsonResponse.release_date.substring(0, 4));
             // console.log(parseInt(jsonResponse.release_date.substring(0, 4)) + 1);
-            return jsonResponse;
+            // app.displayTitle("just checking", jsonResponse.original_title);
+
+            const titleParent = document.querySelector('.homeParent');
+            const randomTitle = document.createElement('p');
+            randomTitle.innerHTML = `
+                <span>
+                ${jsonResponse.original_title}
+                </span>
+            `
+            titleParent.appendChild(randomTitle);
         })
 };
 
