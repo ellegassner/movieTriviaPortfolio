@@ -128,44 +128,50 @@ app.getMovie = () => {
             // console.log(jsonResponse.release_date.substring(0, 4));
             // console.log(parseInt(jsonResponse.release_date.substring(0, 4)) + 1);
             // app.displayTitle("just checking", jsonResponse.original_title);
+            return jsonResponse;
 
-            const titleParent = document.querySelector('.homeParent');
-            const randomTitle = document.createElement('p');
+            //TESTING APPENDING FOR CLICK EVENT
+            // const titleParent = document.querySelector('.homeParent');
+            // const randomTitle = document.createElement('p');
 
-            randomTitle.innerHTML = `
-                <span>
-                ${jsonResponse.original_title}
-                </span>
-            `
-            titleParent.appendChild(randomTitle);
+            // randomTitle.innerHTML = `
+            //     <span>
+            //     ${jsonResponse.original_title}
+            //     </span>
+            // `
+            // titleParent.appendChild(randomTitle);
         })
 };
 
 app.getPoster = () => {
     app.moviePosterUrl = `${app.apiUrl}/images`;
+    app.posterApiKey = 'd60732eee81090082315176607fd09e7';
 
     const posterUrl = new URL(app.moviePosterUrl);
     posterUrl.search = new URLSearchParams({
-        api_key: app.apiKey,
+        api_key: app.posterApiKey
     })
 
     fetch(posterUrl)
         .then((response) => {
             return response.json();
         })
-        .then((jsonResponse) => {
-            // console.log("poster here!", jsonResponse.posters[0]);
+        .then((results) => {
+            console.log("json!", results);
+            
+            const filePath = results.posters[0].file_path;
+            console.log("filePath!", filePath);
 
-            const filePath = jsonResponse.posters[0].file_path;
-            const posterPath = `${posterUrl}${filePath}`;
-            console.log("posters!", posterPath);
-            // const posterParent = document.querySelector('.homeParent');
-            // const randomPoster = document.createElement('img');
+            const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
+            console.log("posters Path!", posterPath);
+            
+            const posterParent = document.querySelector('.homeParent');
+            const randomPoster = document.createElement('img');
 
-            // randomPoster.src = posterPath;
-            // randomPoster.alt = "random movie poster here";
+            randomPoster.src = posterPath;
+            randomPoster.alt = "random movie poster here";
 
-            // posterParent.appendChild(randomPoster);
+            posterParent.appendChild(randomPoster);
         })
 }
 
