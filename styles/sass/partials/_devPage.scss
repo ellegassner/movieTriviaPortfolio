@@ -1,0 +1,24 @@
+.social {
+    display: flex;
+    justify-content: center;
+
+
+    a {
+        margin: 0 10px 15px 10px;
+    }
+}
+
+.theo,
+.elle {
+    padding-top: 15px;
+    
+    h3 {
+        margin-bottom: 0;
+    }
+    
+    p,
+    p {
+        background: $textBackgroundColor;
+        padding: 30px;
+    }
+}
