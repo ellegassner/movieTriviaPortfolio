@@ -36,3 +36,20 @@ img {
     display: block;
     border: 3px solid $correctAnswerColor;
 }
+
+button {
+    color: $backgroundColor;
+    background-color: $styleFontColor;
+    border: 2px solid $backgroundColor;
+    padding: 10px;
+    letter-spacing: 1px;
+
+    &:focus,
+    &:active,
+    &:hover {
+        color: $styleFontColor;
+        background-color: $backgroundColor;
+        border: 2px solid $styleFontColor;
+        cursor: pointer;
+    }
+}
