@@ -242,11 +242,14 @@ body {
 }
 
 a,
-.userName {
+label .userName {
   text-decoration: none;
   font-family: "Roboto", sans-serif;
   color: linen;
-  z-index: 30;
+}
+
+input {
+  color: #2a0a4f;
 }
 
 .skipLink {
@@ -263,15 +266,23 @@ a,
 }
 
 h1 {
+  color: #ee693a;
+  text-transform: uppercase;
+  font-size: 3rem;
+  margin-right: 30%;
+}
+
+h2 {
   font-family: "Bungee Shade", cursive;
   font-size: 6rem;
   line-height: 8rem;
   color: #eeab41;
   text-align: center;
+  padding-top: 25px;
 }
 
-h2,
-h3 {
+h3,
+h4 {
   font-family: "Roboto", sans-serif;
   font-size: 4rem;
   line-height: 6rem;
@@ -297,9 +308,6 @@ h3 {
           align-items: center;
 }
 .navBar .logo {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   font-size: 5rem;
   color: #ee693a;
 }
@@ -377,7 +385,19 @@ img {
   margin-left: 100px;
 }
 
-.social {
+.developers {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.developers article {
+  -ms-flex-preferred-size: 45%;
+      flex-basis: 45%;
+}
+.developers article .social {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -385,7 +405,7 @@ img {
       -ms-flex-pack: center;
           justify-content: center;
 }
-.social a {
+.developers article .social a {
   margin: 0 10px 15px 10px;
 }
 

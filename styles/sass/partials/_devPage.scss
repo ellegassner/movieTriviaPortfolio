@@ -1,10 +1,18 @@
-.social {
+.developers {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 
+    article {
+        flex-basis: 45%;
 
-    a {
-        margin: 0 10px 15px 10px;
+        .social {
+            display: flex;
+            justify-content: center;
+
+            a {
+                margin: 0 10px 15px 10px;
+            }
+        }
     }
 }
 
