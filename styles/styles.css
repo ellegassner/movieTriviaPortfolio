@@ -242,11 +242,14 @@ body {
 }
 
 a,
-.userName {
+label .userName {
   text-decoration: none;
   font-family: "Roboto", sans-serif;
   color: linen;
-  z-index: 30;
+}
+
+input {
+  color: #2a0a4f;
 }
 
 .skipLink {
@@ -263,15 +266,23 @@ a,
 }
 
 h1 {
+  color: #ee693a;
+  text-transform: uppercase;
+  font-size: 3rem;
+  margin-right: 30%;
+}
+
+h2 {
   font-family: "Bungee Shade", cursive;
   font-size: 6rem;
   line-height: 8rem;
   color: #eeab41;
   text-align: center;
+  padding-top: 25px;
 }
 
-h2,
-h3 {
+h3,
+h4 {
   font-family: "Roboto", sans-serif;
   font-size: 4rem;
   line-height: 6rem;
@@ -284,16 +295,30 @@ h3 {
   line-height: 3rem;
 }
 
-.logo {
+.navBar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding-top: 15px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.navBar .logo {
   font-size: 5rem;
   color: #ee693a;
+}
+.navBar a {
+  color: #2a0a4f;
+  font-weight: 700;
+}
+.navBar .devPage {
+  font-size: 2rem;
+  background-color: #ee693a;
+  padding: 15px;
 }
 
 .wrapper {
@@ -309,6 +334,20 @@ img {
   border: 3px solid #ee693a;
 }
 
+button {
+  color: #2a0a4f;
+  background-color: #eeab41;
+  border: 2px solid #2a0a4f;
+  padding: 10px;
+  letter-spacing: 1px;
+}
+button:focus, button:active, button:hover {
+  color: #eeab41;
+  background-color: #2a0a4f;
+  border: 2px solid #eeab41;
+  cursor: pointer;
+}
+
 .quizInstructions {
   background-color: #471f6a;
   padding: 15px;
@@ -320,6 +359,11 @@ img {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.quizParent {
+  background: #471f6a;
+  padding: 25px;
 }
 
 .quizChild {
@@ -334,6 +378,7 @@ img {
       -ms-flex-pack: center;
           justify-content: center;
   width: 100%;
+  padding: 5% 0 10% 0;
 }
 .quizChild .moviePoster {
   -ms-flex-preferred-size: 30%;
@@ -351,11 +396,63 @@ img {
       -ms-flex-pack: start;
           justify-content: flex-start;
   margin-left: 100px;
+  font-size: 2.5rem;
+  line-height: 4rem;
 }
-.quizChild .quizOptions .quizChoices .choiceOption {
+.quizChild .quizOptions .quizChoices label {
+  display: inline-block;
   background-color: #ee693a;
-  margin-right: 10px;
+  margin: 0 10px 15px 15px;
+  width: 100%;
+  text-align: left;
+  padding-left: 15px;
 }
 .quizChild .quizOptions .submitOptions {
-  margin-left: 100px;
+  margin: 50px 0 0 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.developers {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.developers article {
+  -ms-flex-preferred-size: 45%;
+      flex-basis: 45%;
+}
+.developers article .social {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.developers article .social a {
+  margin: 0 10px 15px 10px;
+}
+
+.theo,
+.elle {
+  padding-top: 15px;
+}
+.theo h3,
+.elle h3 {
+  margin-bottom: 0;
+}
+.theo p,
+.theo p,
+.elle p,
+.elle p {
+  background: #471f6a;
+  padding: 30px;
 }

@@ -1,10 +1,28 @@
-.logo {
+
+.navBar {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding-top: 15px;
-    font-size: 5rem;
-    color: $correctAnswerColor;
+    align-items: center;
+
+    .logo {
+        font-size: 5rem;
+        color: $correctAnswerColor;
+    }
+
+    a {
+        color: $backgroundColor;
+        font-weight: 700;
+    }
+
+    .devPage {
+        font-size: 2rem;
+        background-color: $correctAnswerColor;
+        padding: 15px;
+
+    }
 }
+
 
 .wrapper {
     width: 80%;
@@ -17,4 +35,21 @@ img {
     height: auto;
     display: block;
     border: 3px solid $correctAnswerColor;
+}
+
+button {
+    color: $backgroundColor;
+    background-color: $styleFontColor;
+    border: 2px solid $backgroundColor;
+    padding: 10px;
+    letter-spacing: 1px;
+
+    &:focus,
+    &:active,
+    &:hover {
+        color: $styleFontColor;
+        background-color: $backgroundColor;
+        border: 2px solid $styleFontColor;
+        cursor: pointer;
+    }
 }

@@ -1,8 +1,14 @@
+.quizParent {
+    background: $textBackgroundColor;
+    padding: 25px;
+}
+
 .quizChild {
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    padding: 5% 0 10% 0;
 
     .moviePoster {
         flex-basis: 30%;
@@ -15,15 +21,23 @@
             display: flex;
             justify-content: flex-start;
             margin-left: 100px;
+            font-size: 2.5rem;
+            line-height: 4rem;
 
-            .choiceOption {
+            label {
+                display: inline-block;
                 background-color: $correctAnswerColor;
-                margin-right: 10px;
+                margin: 0 10px 15px 15px;
+                width: 100%;
+                text-align: left;
+                padding-left: 15px;
             }
         }
 
         .submitOptions {
-            margin-left: 100px;
+            margin: 50px 0 0 100px;
+            display: flex;
+            justify-content: space-between;
         }
     }
 }

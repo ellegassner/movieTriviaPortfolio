@@ -47,10 +47,12 @@ app.getUserName = () => {
 app.getQuestion = () => {
     const index = app.getRandomNumber(app.questions.length - 1);
     return app.questions[index];
-
 }
 
+
 //#endregion
+
+
 
 //#region The Game
 app.startGame = () => {
@@ -71,7 +73,11 @@ app.startGame = () => {
 
         // 2.2 select Random Movie
         const movie = app.getMovie();
-        console.log("movies", movie);
+        console.log("movie", movie);
+
+        // selecting poster with random movie
+        const poster = app.getPoster();
+        console.log("poster", poster);
 
         // 2.3 storing correct answer in a variable
         if(quest === app.questionType1){
@@ -105,24 +111,69 @@ app.getMovie = () => {
     app.apiUrl = `https://api.themoviedb.org/3/movie/${app.movieId}`;
     app.apiKey = "00c9d839153d1b6c3b376514c7334065";
     
+
     const url = new URL(app.apiUrl);
     url.search = new URLSearchParams({
         api_key: app.apiKey,
     })
-
+    
     fetch(url)
         .then((response) => {
             return response.json();
         })
         .then((jsonResponse) => {
-            console.log(jsonResponse);
+            console.log (jsonResponse);
             // console.log(jsonResponse.original_title);
             // console.log(jsonResponse.release_date);
             // console.log(jsonResponse.release_date.substring(0, 4));
             // console.log(parseInt(jsonResponse.release_date.substring(0, 4)) + 1);
+            // app.displayTitle("just checking", jsonResponse.original_title);
             return jsonResponse;
+
+            //TESTING APPENDING FOR CLICK EVENT
+            // const titleParent = document.querySelector('.homeParent');
+            // const randomTitle = document.createElement('p');
+
+            // randomTitle.innerHTML = `
+            //     <span>
+            //     ${jsonResponse.original_title}
+            //     </span>
+            // `
+            // titleParent.appendChild(randomTitle);
         })
 };
+
+app.getPoster = () => {
+    app.moviePosterUrl = `${app.apiUrl}/images`;
+    app.posterApiKey = 'd60732eee81090082315176607fd09e7';
+
+    const posterUrl = new URL(app.moviePosterUrl);
+    posterUrl.search = new URLSearchParams({
+        api_key: app.posterApiKey
+    })
+
+    fetch(posterUrl)
+        .then((response) => {
+            return response.json();
+        })
+        .then((results) => {
+            console.log("json!", results);
+            
+            const filePath = results.posters[0].file_path;
+            console.log("filePath!", filePath);
+
+            const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
+            console.log("posters Path!", posterPath);
+            
+            const posterParent = document.querySelector('.homeParent');
+            const randomPoster = document.createElement('img');
+
+            randomPoster.src = posterPath;
+            randomPoster.alt = "random movie poster here";
+
+            posterParent.appendChild(randomPoster);
+        })
+}
 
 app.init = () => {
     app.userName;
