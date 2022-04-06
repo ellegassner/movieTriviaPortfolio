@@ -32,6 +32,7 @@
 // Creating the Namespace Object
 const app = {};
 
+app.apiUrl = "https://api.themoviedb.org/3"; // added these here so they are avaiable to all 
 app.apiKey = "00c9d839153d1b6c3b376514c7334065";
 
 //#region specific functions
@@ -113,21 +114,20 @@ app.startGame = () => {
 async function getPopularMovies() {
     //GETTING RANDOM NUMBER FOR THE PAGE
     const pageNumber = app.getRandomNumber(100);
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=00c9d839153d1b6c3b376514c7334065&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNumber}`;
-    // app.apiKey = "00c9d839153d1b6c3b376514c7334065";
-    // const url = `https://api.themoviedb.org/3/discover/movie`;
 
-    // const movieUrl = new URL(url);
-    // movieUrl.search = new URLSearchParams({
-    //     api_key: app.apiKey,
-    //     // language: 'en-US',
-    //     // sort_by: 'popularity.desc',
-    //     // include_adult: false,
-    //     // include_video: false,
-    //     // page: 1
-    // });
+    const movieEndPoint = `${app.apiUrl}/discover/movie`;
 
-    const movieSelection = await fetch(url)
+    const movieUrl = new URL(movieEndPoint);
+    movieUrl.search = new URLSearchParams({
+        api_key: app.apiKey,
+        language: 'en-US',
+        sort_by: 'popularity.desc',
+        include_adult: false,
+        include_video: false,
+        page: pageNumber,
+    });
+
+    const movieSelection = await fetch(movieUrl)
     const movieData = await movieSelection.json();
     // return movieData;
     
@@ -138,11 +138,15 @@ async function getPopularMovies() {
 
     //DESTRUCTURING THE RANDOM MOVIE OBJ TO GET SPECIFIC DATA
     const { id, original_title, overview, poster_path, release_date } = randomMovieObj;
+    
     console.log(id);
     console.log(original_title);
     console.log(overview);
     console.log(poster_path);
     console.log(release_date);
+
+    //NOW THAT WE HAVE THE DATA AVAILABLE, CALL POSTER IN HERE
+
 }
 
 
@@ -188,8 +192,8 @@ async function getPopularMovies() {
 //#endregion
 
 app.getPoster = () => {
-    app.moviePosterUrl = `${app.apiUrl}/images`;
-    app.posterApiKey = 'd60732eee81090082315176607fd09e7';
+    app.moviePosterUrl = `${app.apiUrl}/images`; //${app.movieID} will have to move in here
+    // app.posterApiKey = 'd60732eee81090082315176607fd09e7'; // Don't think this is needed
 
     const posterUrl = new URL(app.moviePosterUrl);
     posterUrl.search = new URLSearchParams({
