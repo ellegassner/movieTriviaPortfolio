@@ -34,7 +34,6 @@ const app = {};
 
 app.apiUrl = "https://api.themoviedb.org/3"; // added these here so they are avaiable to all 
 app.apiKey = "00c9d839153d1b6c3b376514c7334065";
-app.movieId;
 
 //#region specific functions
 // Method to return a random number until a max value
@@ -86,12 +85,15 @@ app.displayQandA = (movie) => {
   const answersOptions = app.getAnswers(movie);
   console.log('Answer Options:', answersOptions);
 
+  const getNewMovie = getPopularMovies(movie);
+  console.log("new movie", getNewMovie)
+
 
   //Display Options
   const movieDescription = `    
     <section class="quizParent" id="quizParent">
       <h3>When was the release date for this movie poster shown?</h3>
-      <h4>${movie.title}</h4>
+      <h4>${app.movieTitle}</h4>
       <div class="quizChild">
         <img src="" alt="" id="moviePoster" class="moviePoster">
         <div class="quizOptions">
@@ -141,6 +143,7 @@ app.startGame = (movie) => {
   //event listener for the start button
   app.startButtonElement.addEventListener("click", function () {
     console.log('Game Started');
+
     // 1.2 get the userName
     app.getUserName();
     console.log('Player Name:', app.getUserName());
@@ -157,13 +160,14 @@ app.startGame = (movie) => {
     // Call 1st Question - Done in init()
     console.log(movie);
     
+    // Display QandA
+    app.displayQandA(movie);
     
     // selecting poster with random movie
     const poster = app.getPoster();
     console.log("poster", poster);
 
-    // Display QandA
-    app.displayQandA(movie);
+
 
     //Change ID and InnerText of the button
     app.startButtonElement.id = 'nextQuestion';
@@ -206,6 +210,7 @@ async function getPopularMovies() {
   app.popularMovies = movieData.results;
   const randomMovieObj = app.popularMovies[Math.floor(Math.random() * app.popularMovies.length)];
   app.movieId = randomMovieObj.id;
+  app.movieTitle = randomMovieObj.original_title;
 
   console.log('movie id', app.movieId);
 
@@ -269,8 +274,6 @@ async function getPopularMovies() {
   // console.log(poster_path);
   // console.log(release_date);   
 
-  //NOW THAT WE HAVE THE DATA AVAILABLE, CALL POSTER IN HERE
-
   //------ THEO
   app.startGame(randomMovieObj);
   //app.nextQuestion(randomMovieObj);
@@ -320,8 +323,7 @@ async function getPopularMovies() {
 
 //#region GETPOSTER
 app.getPoster = () => {
-  app.moviePosterUrl = `${app.apiUrl}/154400/images`; //${app.movieID} will have to move in here
-  // app.posterApiKey = 'd60732eee81090082315176607fd09e7'; // Don't think this is needed
+  app.moviePosterUrl = `${app.apiUrl}/movie/${app.movieId}/images`; 
 
   const posterUrl = new URL(app.moviePosterUrl);
   posterUrl.search = new URLSearchParams({
@@ -333,63 +335,15 @@ app.getPoster = () => {
       return response.json();
     })
     .then((results) => {
-      console.log("json!", results);
-
       const filePath = results.posters[0].file_path;
-      console.log("filePath!", filePath);
-
       const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
-      console.log("posters Path!", posterPath);
-
-      const posterParent = document.querySelector('.homeParent');
-      const randomPoster = document.createElement('img');
+      const randomPoster = document.querySelector(".quizChild img");
 
       randomPoster.src = posterPath;
-      randomPoster.alt = "random movie poster here";
+      randomPoster.alt = `${app.movieTitle} poster image.`;
 
-      posterParent.appendChild(randomPoster);
+      randomPoster.append();
     })
-
-
-    // .then((results) => {
-    //   console.log("json!", results);
-
-    //   const filePath = results.posters[0].file_path;
-    //   console.log("filePath!", filePath);
-
-    //   const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
-    //   console.log("posters Path!", posterPath);
-
-
-
-
-
-
-//   app.moviePosterUrl = `${app.apiUrl}/images`;
-//   app.posterApiKey = 'd60732eee81090082315176607fd09e7';
-
-//   const posterUrl = new URL(app.moviePosterUrl);
-//   posterUrl.search = new URLSearchParams({
-//     api_key: app.posterApiKey
-//   })
-
-//   fetch(posterUrl)
-//     .then((response) => {
-//       return response.json();
-  
-
-
-
-//       const posterParent = document.querySelector('.homeParent');
-//       const randomPoster = document.createElement('img');
-
-//       randomPoster.src = posterPath;
-//       randomPoster.alt = "random movie poster here";
-
-//       posterParent.appendChild(randomPoster);
-//     })
-
-
 }
 //#endregion
 
@@ -429,6 +383,7 @@ app.init = () => {
   app.errorElement = document.getElementById('errorMessage');
 
   app.questionElement = document.querySelector('h3');
+  
 
 
 
