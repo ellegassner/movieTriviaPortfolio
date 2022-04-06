@@ -34,6 +34,7 @@ const app = {};
 
 app.apiUrl = "https://api.themoviedb.org/3"; // added these here so they are avaiable to all 
 app.apiKey = "00c9d839153d1b6c3b376514c7334065";
+app.movieId;
 
 //#region specific functions
 // Method to return a random number until a max value
@@ -204,6 +205,12 @@ async function getPopularMovies() {
   //2.2 select random movie
   app.popularMovies = movieData.results;
   const randomMovieObj = app.popularMovies[Math.floor(Math.random() * app.popularMovies.length)];
+  app.movieId = randomMovieObj.id;
+
+  console.log('movie id', app.movieId);
+
+  // app.getPoster();
+  
   //console.log("randomMovie", randomMovieObj); // RETURNS A RANDOM MOVIE OBJ
   //////app.startGame(randomMovieObj);
 
@@ -211,7 +218,7 @@ async function getPopularMovies() {
   // const { id, original_title, overview, poster_path, release_date } = randomMovieObj;
   // //return { id, original_title, overview, poster_path, release_date } = randomMovieObj;
 
-}
+// }
 
 
 
@@ -313,6 +320,50 @@ async function getPopularMovies() {
 
 //#region GETPOSTER
 app.getPoster = () => {
+  app.moviePosterUrl = `${app.apiUrl}/154400/images`; //${app.movieID} will have to move in here
+  // app.posterApiKey = 'd60732eee81090082315176607fd09e7'; // Don't think this is needed
+
+  const posterUrl = new URL(app.moviePosterUrl);
+  posterUrl.search = new URLSearchParams({
+    api_key: app.apiKey
+  })
+
+  fetch(posterUrl)
+    .then((response) => {
+      return response.json();
+    })
+    .then((results) => {
+      console.log("json!", results);
+
+      const filePath = results.posters[0].file_path;
+      console.log("filePath!", filePath);
+
+      const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
+      console.log("posters Path!", posterPath);
+
+      const posterParent = document.querySelector('.homeParent');
+      const randomPoster = document.createElement('img');
+
+      randomPoster.src = posterPath;
+      randomPoster.alt = "random movie poster here";
+
+      posterParent.appendChild(randomPoster);
+    })
+
+
+    // .then((results) => {
+    //   console.log("json!", results);
+
+    //   const filePath = results.posters[0].file_path;
+    //   console.log("filePath!", filePath);
+
+    //   const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
+    //   console.log("posters Path!", posterPath);
+
+
+
+
+
 
 //   app.moviePosterUrl = `${app.apiUrl}/images`;
 //   app.posterApiKey = 'd60732eee81090082315176607fd09e7';
@@ -326,21 +377,7 @@ app.getPoster = () => {
 //     .then((response) => {
 //       return response.json();
   
-    app.moviePosterUrl = `${app.apiUrl}/images`; //${app.movieID} will have to move in here
-    // app.posterApiKey = 'd60732eee81090082315176607fd09e7'; // Don't think this is needed
 
-    const posterUrl = new URL(app.moviePosterUrl);
-    posterUrl.search = new URLSearchParams({
-        api_key: app.apiKey
-    })
-    .then((results) => {
-      console.log("json!", results);
-
-      const filePath = results.posters[0].file_path;
-      console.log("filePath!", filePath);
-
-      const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
-      console.log("posters Path!", posterPath);
 
 
 //       const posterParent = document.querySelector('.homeParent');
@@ -352,27 +389,7 @@ app.getPoster = () => {
 //       posterParent.appendChild(randomPoster);
 //     })
 
-    fetch(posterUrl)
-        .then((response) => {
-            return response.json();
-        })
-        .then((results) => {
-            console.log("json!", results);
 
-            const filePath = results.posters[0].file_path;
-            console.log("filePath!", filePath);
-
-            const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
-            console.log("posters Path!", posterPath);
-
-            const posterParent = document.querySelector('.homeParent');
-            const randomPoster = document.createElement('img');
-
-            randomPoster.src = posterPath;
-            randomPoster.alt = "random movie poster here";
-
-            posterParent.appendChild(randomPoster);
-        })
 }
 //#endregion
 
