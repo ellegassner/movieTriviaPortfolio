@@ -9,7 +9,8 @@
 1.2 Get user's name to invite to play quiz game --(STRETCH)
 2. Use Data (inside a loop)
 2.1 Determine our questions
-2.2 Select one random movie                       ---- **** LOGIC DONE, SEE IN GETPOPULAR MOVIES **** ---- 
+2.2 Select one random movie  ---- **** LOGIC DONE, SEE IN GETPOPULAR MOVIES + ALSO DID RANDOM NUMBER FOR PAGE 
+**** ---- 
 2.3 Get correct and wrong answers and store to an answerArray
 2.4 Get 4 incorrect answers and store to the answerArray
 2.5 Do a check with user answer for correct stored variable answer
@@ -110,7 +111,9 @@ app.startGame = () => {
 
 
 async function getPopularMovies() {
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=00c9d839153d1b6c3b376514c7334065&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`;
+
+    const pageNumber = app.getRandomNumber(100);
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=00c9d839153d1b6c3b376514c7334065&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNumber}`;
     // app.apiKey = "00c9d839153d1b6c3b376514c7334065";
     // const url = `https://api.themoviedb.org/3/discover/movie`;
 
@@ -133,7 +136,7 @@ async function getPopularMovies() {
     const randomMovieObj = app.popularMovies[Math.floor(Math.random() * app.popularMovies.length)];
     console.log("randomMovie", randomMovieObj);
 
-    // console.log(app.popularMovies); //returns an array of objects
+
 
     // const { id, original_title, overview, poster_path, release_date } = movieData.results[0];
     // console.log(id);
