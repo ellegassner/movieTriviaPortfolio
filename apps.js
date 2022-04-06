@@ -31,6 +31,7 @@
 const app = {};
 
 // Global Variables
+
 app.apiUrl = "https://api.themoviedb.org/3"; // added these here so they are avaiable to all 
 app.apiKey = "00c9d839153d1b6c3b376514c7334065";
 
@@ -146,6 +147,7 @@ app.startGame = (movie) => {
     // 2.1 get Question
     const quest = app.getQuestion();
 
+
     // Append Question
     const question = document.createElement('h2');
     question.innerText = quest;
@@ -153,6 +155,11 @@ app.startGame = (movie) => {
 
     // Call 1st Question - Done in init()
     console.log(movie);
+    
+    
+    // selecting poster with random movie
+    const poster = app.getPoster();
+    console.log("poster", poster);
 
     // Display QandA
     app.displayQandA(movie);
@@ -178,7 +185,6 @@ app.startGame = (movie) => {
 async function getPopularMovies() {
   //GETTING RANDOM NUMBER FOR THE PAGE
   const pageNumber = app.getRandomNumber(100);
-
   const movieEndPoint = `${app.apiUrl}/discover/movie`;
 
   const movieUrl = new URL(movieEndPoint);
@@ -204,6 +210,51 @@ async function getPopularMovies() {
   // //DESTRUCTURING THE RANDOM MOVIE OBJ TO GET SPECIFIC DATA
   // const { id, original_title, overview, poster_path, release_date } = randomMovieObj;
   // //return { id, original_title, overview, poster_path, release_date } = randomMovieObj;
+
+}
+
+
+
+
+//#region Get 1 Movie
+// app.getMovie = () => {
+//     app.movieId = app.getRandomNumber(200000);
+//     app.apiUrl = `https://api.themoviedb.org/3/movie/${app.movieId}`;
+//     app.apiKey = "00c9d839153d1b6c3b376514c7334065";
+
+
+//     const url = new URL(app.apiUrl);
+//     url.search = new URLSearchParams({
+//         api_key: app.apiKey,
+//     })
+
+//     fetch(url)
+//         .then((response) => {
+//             return response.json();
+//         })
+//         .then((jsonResponse) => {
+//             console.log (jsonResponse);
+//             // console.log(jsonResponse.original_title);
+//             // console.log(jsonResponse.release_date);
+//             // console.log(jsonResponse.release_date.substring(0, 4));
+//             // console.log(parseInt(jsonResponse.release_date.substring(0, 4)) + 1);
+//             // app.displayTitle("just checking", jsonResponse.original_title);
+//             return jsonResponse;
+
+//             //TESTING APPENDING FOR CLICK EVENT
+//             // const titleParent = document.querySelector('.homeParent');
+//             // const randomTitle = document.createElement('p');
+
+//             // randomTitle.innerHTML = `
+//             //     <span>
+//             //     ${jsonResponse.original_title}
+//             //     </span>
+//             // `
+//             // titleParent.appendChild(randomTitle);
+//         })
+// };
+//#endregion
+
 
   // console.log(id);
   // console.log(original_title);
@@ -262,17 +313,25 @@ async function getPopularMovies() {
 
 //#region GETPOSTER
 app.getPoster = () => {
-  app.moviePosterUrl = `${app.apiUrl}/images`;
-  app.posterApiKey = 'd60732eee81090082315176607fd09e7';
 
-  const posterUrl = new URL(app.moviePosterUrl);
-  posterUrl.search = new URLSearchParams({
-    api_key: app.posterApiKey
-  })
+//   app.moviePosterUrl = `${app.apiUrl}/images`;
+//   app.posterApiKey = 'd60732eee81090082315176607fd09e7';
 
-  fetch(posterUrl)
-    .then((response) => {
-      return response.json();
+//   const posterUrl = new URL(app.moviePosterUrl);
+//   posterUrl.search = new URLSearchParams({
+//     api_key: app.posterApiKey
+//   })
+
+//   fetch(posterUrl)
+//     .then((response) => {
+//       return response.json();
+  
+    app.moviePosterUrl = `${app.apiUrl}/images`; //${app.movieID} will have to move in here
+    // app.posterApiKey = 'd60732eee81090082315176607fd09e7'; // Don't think this is needed
+
+    const posterUrl = new URL(app.moviePosterUrl);
+    posterUrl.search = new URLSearchParams({
+        api_key: app.apiKey
     })
     .then((results) => {
       console.log("json!", results);
@@ -283,14 +342,37 @@ app.getPoster = () => {
       const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
       console.log("posters Path!", posterPath);
 
-      const posterParent = document.querySelector('.homeParent');
-      const randomPoster = document.createElement('img');
 
-      randomPoster.src = posterPath;
-      randomPoster.alt = "random movie poster here";
+//       const posterParent = document.querySelector('.homeParent');
+//       const randomPoster = document.createElement('img');
 
-      posterParent.appendChild(randomPoster);
-    })
+//       randomPoster.src = posterPath;
+//       randomPoster.alt = "random movie poster here";
+
+//       posterParent.appendChild(randomPoster);
+//     })
+
+    fetch(posterUrl)
+        .then((response) => {
+            return response.json();
+        })
+        .then((results) => {
+            console.log("json!", results);
+
+            const filePath = results.posters[0].file_path;
+            console.log("filePath!", filePath);
+
+            const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
+            console.log("posters Path!", posterPath);
+
+            const posterParent = document.querySelector('.homeParent');
+            const randomPoster = document.createElement('img');
+
+            randomPoster.src = posterPath;
+            randomPoster.alt = "random movie poster here";
+
+            posterParent.appendChild(randomPoster);
+        })
 }
 //#endregion
 
@@ -339,6 +421,7 @@ app.init = () => {
 
   //app.startGame();
   // app.getMovie();
+
 }
 
 app.init();
