@@ -111,7 +111,7 @@ app.startGame = () => {
 
 
 async function getPopularMovies() {
-
+    //GETTING RANDOM NUMBER FOR THE PAGE
     const pageNumber = app.getRandomNumber(100);
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=00c9d839153d1b6c3b376514c7334065&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNumber}`;
     // app.apiKey = "00c9d839153d1b6c3b376514c7334065";
@@ -134,14 +134,15 @@ async function getPopularMovies() {
     //2.2 select random movie
     app.popularMovies = movieData.results;
     const randomMovieObj = app.popularMovies[Math.floor(Math.random() * app.popularMovies.length)];
-    console.log("randomMovie", randomMovieObj);
+    console.log("randomMovie", randomMovieObj); // RETURNS A RANDOM MOVIE OBJ
 
-
-
-    // const { id, original_title, overview, poster_path, release_date } = movieData.results[0];
-    // console.log(id);
-
-
+    //DESTRUCTURING THE RANDOM MOVIE OBJ TO GET SPECIFIC DATA
+    const { id, original_title, overview, poster_path, release_date } = randomMovieObj;
+    console.log(id);
+    console.log(original_title);
+    console.log(overview);
+    console.log(poster_path);
+    console.log(release_date);
 }
 
 
