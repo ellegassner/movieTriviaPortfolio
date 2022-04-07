@@ -151,7 +151,6 @@ app.startGame = (movie) => {
     // 2.1 get Question
     const quest = app.getQuestion();
 
-
     // Append Question
     const question = document.createElement('h2');
     question.innerText = quest;
@@ -164,10 +163,7 @@ app.startGame = (movie) => {
     app.displayQandA(movie);
     
     // selecting poster with random movie
-    const poster = app.getPoster();
-    console.log("poster", poster);
-
-
+    app.getPoster();
 
     //Change ID and InnerText of the button
     app.startButtonElement.id = 'nextQuestion';
@@ -195,7 +191,7 @@ async function getPopularMovies() {
   const movieUrl = new URL(movieEndPoint);
   movieUrl.search = new URLSearchParams({
     api_key: app.apiKey,
-    language: 'en-US',
+    language: 'en-US', 
     sort_by: 'popularity.desc',
     include_adult: false,
     include_video: false,
@@ -205,27 +201,27 @@ async function getPopularMovies() {
   const movieSelection = await fetch(movieUrl)
   const movieData = await movieSelection.json();
 
-
   //2.2 select random movie
   app.popularMovies = movieData.results;
   const randomMovieObj = app.popularMovies[Math.floor(Math.random() * app.popularMovies.length)];
+
+  // Creating movieId and movieTitle variable to reuse for poster data
   app.movieId = randomMovieObj.id;
   app.movieTitle = randomMovieObj.original_title;
 
-  console.log('movie id', app.movieId);
+  //------ THEO
+  app.startGame(randomMovieObj);
+  //app.nextQuestion(randomMovieObj);
+  return (randomMovieObj);
 
-  // app.getPoster();
+
   
-  //console.log("randomMovie", randomMovieObj); // RETURNS A RANDOM MOVIE OBJ
-  //////app.startGame(randomMovieObj);
 
   // //DESTRUCTURING THE RANDOM MOVIE OBJ TO GET SPECIFIC DATA
   // const { id, original_title, overview, poster_path, release_date } = randomMovieObj;
   // //return { id, original_title, overview, poster_path, release_date } = randomMovieObj;
 
 // }
-
-
 
 
 //#region Get 1 Movie
@@ -274,10 +270,7 @@ async function getPopularMovies() {
   // console.log(poster_path);
   // console.log(release_date);   
 
-  //------ THEO
-  app.startGame(randomMovieObj);
-  //app.nextQuestion(randomMovieObj);
-  return (randomMovieObj);
+
 
 }
 //#endregion
@@ -327,7 +320,7 @@ app.getPoster = () => {
 
   const posterUrl = new URL(app.moviePosterUrl);
   posterUrl.search = new URLSearchParams({
-    api_key: app.apiKey
+    api_key: app.apiKey,
   })
 
   fetch(posterUrl)

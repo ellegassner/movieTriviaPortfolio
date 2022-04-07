@@ -1,6 +1,7 @@
 .quizParent {
     background: $textBackgroundColor;
     padding: 25px;
+    position: relative;
 }
 
 .quizChild {
@@ -40,4 +41,10 @@
             justify-content: space-between;
         }
     }
+}
+
+#nextQuestion {
+    position: absolute;
+    bottom: -300px;
+    right: 350px;
 }

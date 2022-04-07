@@ -332,6 +332,8 @@ img {
   height: auto;
   display: block;
   border: 3px solid #ee693a;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 button {
@@ -340,12 +342,17 @@ button {
   border: 2px solid #2a0a4f;
   padding: 10px;
   letter-spacing: 1px;
+  margin-top: 8%;
 }
 button:focus, button:active, button:hover {
   color: #eeab41;
   background-color: #2a0a4f;
   border: 2px solid #eeab41;
   cursor: pointer;
+}
+
+.footerParent {
+  margin-top: 15%;
 }
 
 .quizInstructions {
@@ -364,6 +371,7 @@ button:focus, button:active, button:hover {
 .quizParent {
   background: #471f6a;
   padding: 25px;
+  position: relative;
 }
 
 .quizChild {
@@ -417,6 +425,12 @@ button:focus, button:active, button:hover {
           justify-content: space-between;
 }
 
+#nextQuestion {
+  position: absolute;
+  bottom: -300px;
+  right: 350px;
+}
+
 .developers {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -455,4 +469,38 @@ button:focus, button:active, button:hover {
 .elle p {
   background: #471f6a;
   padding: 30px;
+  height: 80%;
+  margin-bottom: 25%;
+}
+
+@media (max-width: 100vw) {
+  #nextQuestion {
+    position: absolute;
+    bottom: -300px;
+    right: 375px;
+  }
+}
+@media (max-width: 900px) {
+  #nextQuestion {
+    position: revert;
+  }
+
+  .quizChild {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    margin: 0 auto;
+  }
+  .quizChild img {
+    max-height: 400px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .quizChild .quizOptions {
+    margin-top: 5%;
+  }
+  .quizChild .quizOptions .quizChoices {
+    margin-left: 0;
+  }
 }

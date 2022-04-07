@@ -1,0 +1,33 @@
+@media (max-width: 100vw) {
+    #nextQuestion {
+        position: absolute;
+        bottom: -300px;
+        right: 375px;
+    }
+}
+
+@media (max-width: 900px) {
+    #nextQuestion {
+        position: revert;
+    }
+
+    .quizChild {
+        flex-direction: column;
+        margin: 0 auto;
+
+        img {
+            max-height: 400px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .quizOptions {
+            margin-top: 5%;
+            .quizChoices {
+                margin-left: 0;
+            }
+        }
+        
+
+    }
+}
