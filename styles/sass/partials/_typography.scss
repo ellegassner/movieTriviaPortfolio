@@ -53,12 +53,19 @@ h2 {
     padding-top: 25px;
 }
 
-h3,
-h4 {
+h3 {
     font-family: $mainFont;
     font-size: 4rem;
     line-height: 6rem;
     text-align: center;
+}
+
+h4 {
+    font-family: $styleFont;
+    font-size: 5rem;
+    line-height: 6rem;
+    text-align: center;
+    color: $styleFontColor;
 }
 
 .footerParent a,

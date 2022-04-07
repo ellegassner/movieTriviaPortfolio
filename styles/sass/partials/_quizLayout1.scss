@@ -1,7 +1,6 @@
 .quizParent {
     background: $textBackgroundColor;
     padding: 25px;
-    position: relative;
 }
 
 .quizChild {
@@ -17,6 +16,7 @@
 
     .quizOptions {
         flex-basis: 60%;
+        position: relative;
 
         .quizChoices {
             display: flex;
@@ -45,6 +45,6 @@
 
 #nextQuestion {
     position: absolute;
-    bottom: -300px;
-    right: 350px;
+    bottom: 100px;
+    right: 0px;
 }

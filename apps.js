@@ -32,7 +32,7 @@ const app = {};
 
 // Global Variables
 
-app.apiUrl = "https://api.themoviedb.org/3"; // added these here so they are avaiable to all 
+app.apiUrl = "https://api.themoviedb.org/3";
 app.apiKey = "00c9d839153d1b6c3b376514c7334065";
 
 //#region specific functions
@@ -85,6 +85,7 @@ app.displayQandA = (movie) => {
   const answersOptions = app.getAnswers(movie);
   console.log('Answer Options:', answersOptions);
 
+  // Calling the async func getPopularMovies
   const getNewMovie = getPopularMovies(movie);
   console.log("new movie", getNewMovie)
 
@@ -143,6 +144,7 @@ app.startGame = (movie) => {
   //event listener for the start button
   app.startButtonElement.addEventListener("click", function () {
     console.log('Game Started');
+    document.querySelector('h2').innerHTML = '';
 
     // 1.2 get the userName
     app.getUserName();
@@ -168,7 +170,7 @@ app.startGame = (movie) => {
     //Change ID and InnerText of the button
     app.startButtonElement.id = 'nextQuestion';
     app.startButtonElement.innerText = 'Next Question';
-
+    
     // Empty the answerArray
     app.answerArray = [];
 
@@ -207,7 +209,7 @@ async function getPopularMovies() {
 
   // Creating movieId and movieTitle variable to reuse for poster data
   app.movieId = randomMovieObj.id;
-  app.movieTitle = randomMovieObj.original_title;
+  app.movieTitle = randomMovieObj.title;
 
   //------ THEO
   app.startGame(randomMovieObj);
@@ -330,7 +332,7 @@ app.getPoster = () => {
     .then((results) => {
       const filePath = results.posters[0].file_path;
       const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
-      const randomPoster = document.querySelector(".quizChild img");
+      const randomPoster = document.querySelector('.quizChild img');
 
       randomPoster.src = posterPath;
       randomPoster.alt = `${app.movieTitle} poster image.`;
