@@ -16,6 +16,7 @@
 
     .quizOptions {
         flex-basis: 60%;
+        position: relative;
 
         .quizChoices {
             display: flex;
@@ -40,4 +41,10 @@
             justify-content: space-between;
         }
     }
+}
+
+#nextQuestion {
+    position: absolute;
+    bottom: 100px;
+    right: 0px;
 }

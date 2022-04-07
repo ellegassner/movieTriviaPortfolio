@@ -32,7 +32,7 @@ const app = {};
 
 // Global Variables
 
-app.apiUrl = "https://api.themoviedb.org/3"; // added these here so they are avaiable to all 
+app.apiUrl = "https://api.themoviedb.org/3";
 app.apiKey = "00c9d839153d1b6c3b376514c7334065";
 
 //#region specific functions
@@ -85,12 +85,16 @@ app.displayQandA = (movie) => {
   const answersOptions = app.getAnswers(movie);
   console.log('Answer Options:', answersOptions);
 
+  // Calling the async func getPopularMovies
+  const getNewMovie = getPopularMovies(movie);
+  console.log("new movie", getNewMovie)
+
 
   //Display Options
   const movieDescription = `    
     <section class="quizParent" id="quizParent">
       <h3>When was the release date for this movie poster shown?</h3>
-      <h4>${movie.title}</h4>
+      <h4>${app.movieTitle}</h4>
       <div class="quizChild">
         <img src="" alt="" id="moviePoster" class="moviePoster">
         <div class="quizOptions">
@@ -140,13 +144,14 @@ app.startGame = (movie) => {
   //event listener for the start button
   app.startButtonElement.addEventListener("click", function () {
     console.log('Game Started');
+    document.querySelector('h2').innerHTML = '';
+
     // 1.2 get the userName
     app.getUserName();
     console.log('Player Name:', app.getUserName());
 
     // 2.1 get Question
     const quest = app.getQuestion();
-
 
     // Append Question
     const question = document.createElement('h2');
@@ -156,18 +161,16 @@ app.startGame = (movie) => {
     // Call 1st Question - Done in init()
     console.log(movie);
     
-    
-    // selecting poster with random movie
-    const poster = app.getPoster();
-    console.log("poster", poster);
-
     // Display QandA
     app.displayQandA(movie);
+    
+    // selecting poster with random movie
+    app.getPoster();
 
     //Change ID and InnerText of the button
     app.startButtonElement.id = 'nextQuestion';
     app.startButtonElement.innerText = 'Next Question';
-
+    
     // Empty the answerArray
     app.answerArray = [];
 
@@ -190,7 +193,7 @@ async function getPopularMovies() {
   const movieUrl = new URL(movieEndPoint);
   movieUrl.search = new URLSearchParams({
     api_key: app.apiKey,
-    language: 'en-US',
+    language: 'en-US', 
     sort_by: 'popularity.desc',
     include_adult: false,
     include_video: false,
@@ -200,20 +203,27 @@ async function getPopularMovies() {
   const movieSelection = await fetch(movieUrl)
   const movieData = await movieSelection.json();
 
-
   //2.2 select random movie
   app.popularMovies = movieData.results;
   const randomMovieObj = app.popularMovies[Math.floor(Math.random() * app.popularMovies.length)];
-  //console.log("randomMovie", randomMovieObj); // RETURNS A RANDOM MOVIE OBJ
-  //////app.startGame(randomMovieObj);
+
+  // Creating movieId and movieTitle variable to reuse for poster data
+  app.movieId = randomMovieObj.id;
+  app.movieTitle = randomMovieObj.title;
+
+  //------ THEO
+  app.startGame(randomMovieObj);
+  //app.nextQuestion(randomMovieObj);
+  return (randomMovieObj);
+
+
+  
 
   // //DESTRUCTURING THE RANDOM MOVIE OBJ TO GET SPECIFIC DATA
   // const { id, original_title, overview, poster_path, release_date } = randomMovieObj;
   // //return { id, original_title, overview, poster_path, release_date } = randomMovieObj;
 
-}
-
-
+// }
 
 
 //#region Get 1 Movie
@@ -262,12 +272,7 @@ async function getPopularMovies() {
   // console.log(poster_path);
   // console.log(release_date);   
 
-  //NOW THAT WE HAVE THE DATA AVAILABLE, CALL POSTER IN HERE
 
-  //------ THEO
-  app.startGame(randomMovieObj);
-  //app.nextQuestion(randomMovieObj);
-  return (randomMovieObj);
 
 }
 //#endregion
@@ -313,66 +318,27 @@ async function getPopularMovies() {
 
 //#region GETPOSTER
 app.getPoster = () => {
+  app.moviePosterUrl = `${app.apiUrl}/movie/${app.movieId}/images`; 
 
-//   app.moviePosterUrl = `${app.apiUrl}/images`;
-//   app.posterApiKey = 'd60732eee81090082315176607fd09e7';
+  const posterUrl = new URL(app.moviePosterUrl);
+  posterUrl.search = new URLSearchParams({
+    api_key: app.apiKey,
+  })
 
-//   const posterUrl = new URL(app.moviePosterUrl);
-//   posterUrl.search = new URLSearchParams({
-//     api_key: app.posterApiKey
-//   })
-
-//   fetch(posterUrl)
-//     .then((response) => {
-//       return response.json();
-  
-    app.moviePosterUrl = `${app.apiUrl}/images`; //${app.movieID} will have to move in here
-    // app.posterApiKey = 'd60732eee81090082315176607fd09e7'; // Don't think this is needed
-
-    const posterUrl = new URL(app.moviePosterUrl);
-    posterUrl.search = new URLSearchParams({
-        api_key: app.apiKey
+  fetch(posterUrl)
+    .then((response) => {
+      return response.json();
     })
     .then((results) => {
-      console.log("json!", results);
-
       const filePath = results.posters[0].file_path;
-      console.log("filePath!", filePath);
-
       const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
-      console.log("posters Path!", posterPath);
+      const randomPoster = document.querySelector('.quizChild img');
 
+      randomPoster.src = posterPath;
+      randomPoster.alt = `${app.movieTitle} poster image.`;
 
-//       const posterParent = document.querySelector('.homeParent');
-//       const randomPoster = document.createElement('img');
-
-//       randomPoster.src = posterPath;
-//       randomPoster.alt = "random movie poster here";
-
-//       posterParent.appendChild(randomPoster);
-//     })
-
-    fetch(posterUrl)
-        .then((response) => {
-            return response.json();
-        })
-        .then((results) => {
-            console.log("json!", results);
-
-            const filePath = results.posters[0].file_path;
-            console.log("filePath!", filePath);
-
-            const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
-            console.log("posters Path!", posterPath);
-
-            const posterParent = document.querySelector('.homeParent');
-            const randomPoster = document.createElement('img');
-
-            randomPoster.src = posterPath;
-            randomPoster.alt = "random movie poster here";
-
-            posterParent.appendChild(randomPoster);
-        })
+      randomPoster.append();
+    })
 }
 //#endregion
 
@@ -412,6 +378,7 @@ app.init = () => {
   app.errorElement = document.getElementById('errorMessage');
 
   app.questionElement = document.querySelector('h3');
+  
 
 
 

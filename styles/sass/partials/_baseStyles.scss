@@ -35,6 +35,7 @@ img {
     height: auto;
     display: block;
     border: 3px solid $correctAnswerColor;
+    object-fit: cover;
 }
 
 button {
@@ -43,6 +44,7 @@ button {
     border: 2px solid $backgroundColor;
     padding: 10px;
     letter-spacing: 1px;
+    margin-top: 8%;
 
     &:focus,
     &:active,
@@ -52,4 +54,8 @@ button {
         border: 2px solid $styleFontColor;
         cursor: pointer;
     }
+}
+
+.footerParent {
+    margin-top: 15%;
 }
