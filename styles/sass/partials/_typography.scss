@@ -41,37 +41,35 @@ h1 {
     color: $correctAnswerColor;
     text-transform: uppercase;
     font-size: 3rem;
-    margin-right: 30%;
+    margin-right: 20%;
 }
 
 h2 {
     font-family: $styleFont;
     font-size: 6rem;
-    line-height: 8rem;
+    line-height: 7rem;
     color: $styleFontColor;
     text-align: center;
     padding-top: 25px;
+    margin: 0;
 }
 
-h3 {
+h3,
+h4 {
     font-family: $mainFont;
-    font-size: 4rem;
-    line-height: 6rem;
+    font-size: 3rem;
+    line-height: 4rem;
     text-align: center;
 }
 
 h4 {
-    font-family: $styleFont;
-    font-size: 5rem;
-    line-height: 6rem;
-    text-align: center;
     color: $styleFontColor;
 }
 
 h5 {
     font-family: $mainFont;
-    font-size: 4rem;
-    line-height: 6rem;
+    font-size: 3rem;
+    line-height: 4rem;
     text-align: center;
 }
 

@@ -145,7 +145,7 @@ app.displayQandA = (movie) => {
       <h3>When was the release date for this movie poster shown?</h3>
       <h4>${app.movieTitle}</h4>
       <div class="quizChild">
-        <img src="" alt="" id="moviePoster" class="moviePoster">
+          <img src="" alt="" id="moviePoster" class="moviePoster">
         <div class="quizOptions">
           <div class="quizChoices">
             <input type="radio" id="choiceText1" class="choiceOption" name="choice" value="${app.answerArray[0]}">
