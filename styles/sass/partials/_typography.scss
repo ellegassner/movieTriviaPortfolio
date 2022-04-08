@@ -68,6 +68,13 @@ h4 {
     color: $styleFontColor;
 }
 
+h5 {
+    font-family: $mainFont;
+    font-size: 4rem;
+    line-height: 6rem;
+    text-align: center;
+}
+
 .footerParent a,
 .footerParent p {
     font-size: 1.5rem;

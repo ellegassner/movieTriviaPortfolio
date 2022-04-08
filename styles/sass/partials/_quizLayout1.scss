@@ -32,7 +32,13 @@
                 width: 100%;
                 text-align: left;
                 padding-left: 15px;
+
+                &.correctAnswer {
+                    background-color: $styleFontColor;
+                }
             }
+
+            
         }
 
         .submitOptions {

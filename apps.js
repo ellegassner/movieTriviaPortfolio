@@ -35,6 +35,14 @@ const app = {};
 app.apiUrl = "https://api.themoviedb.org/3";
 app.apiKey = "00c9d839153d1b6c3b376514c7334065";
 
+app.player = {
+  name: 'player1',
+  score: 0,
+  answer: 0,
+}
+
+
+
 //#region specific functions
 // Method to return a random number until a max value
 app.getRandomNumber = (maxId) => {
@@ -42,13 +50,12 @@ app.getRandomNumber = (maxId) => {
 }
 
 // Method to return a random number inside a range
-app.getRandomNumberFromInterval = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+app.getRandomNumberFromInterval = (min) => {
+  return Math.floor(Math.random() * (2022 - min + 1) + min);
 }
 
 app.getUserName = () => {
   app.userName = app.userNameElement.value;
-  // console.log(app.userName);
   return app.userName;
 }
 
@@ -62,19 +69,62 @@ app.getAnswers = (movie) => {
   // 2.3 Get correct and wrong options and store to an answerArray
   app.answer = parseInt(movie.release_date.substring(0, 4));
   app.answerArray.push(app.answer);
+  console.log("right answer", app.answer);
 
   // 2.4 generate 4 incorrect answers
   for (let wa = 1; wa <= 4; wa++) {
-    let newWrongAnswer = app.getRandomNumberFromInterval(app.answer - 10, app.answer + 10);
+    let newWrongAnswer = app.getRandomNumberFromInterval(app.answer - 10);
     // Check if wrong answer already exists in the array
     while (app.answerArray.includes(newWrongAnswer)) {
-      newWrongAnswer = app.getRandomNumberFromInterval(app.answer - 10, app.answer + 10);
+      newWrongAnswer = app.getRandomNumberFromInterval(app.answer - 10);
     }
     app.answerArray.push(newWrongAnswer);
   }
   app.answerArray.sort();
   return app.answerArray;
 }
+
+app.checkAnswers = () => {
+  app.player.answer = document.querySelector('input[name="choice"]:checked').value;
+  console.log("checked value", app.player.answer);
+
+    if (parseInt(app.player.answer) === app.answer) {
+      // app.player.score++;
+      
+      app.messageH4.innerHTML = `
+      Congrats, you are super smart!
+      `
+
+      // app.scoreCounter.innerHTML = `
+      // Score: ${app.player.score}
+      // `
+      app.messageParent.appendChild(app.messageH4);
+      // messageParent.appendChild(app.scoreCounter);
+
+      console.log("right answer", app.messageH4);
+      // console.log("score right", app.scoreCounter);
+
+    } else {
+      app.player.score;
+
+      app.messageH4.innerHTML = `
+      No points for you, try again!
+      `
+
+      // app.scoreCounter.innerHTML = `
+      // Score: ${app.player.score}
+      // `
+
+      app.messageParent.appendChild(app.messageH4);
+      // messageParent.appendChild(app.scoreCounter);
+
+      console.log("wrong answer", app.messageH4);
+      // console.log("score wrong", app.scoreCounter);
+    }
+}
+
+
+
 
 // Method to display the Question and the 5 answer options and the buttons
 app.displayQandA = (movie) => {
@@ -88,7 +138,6 @@ app.displayQandA = (movie) => {
   // Calling the async func getPopularMovies
   const getNewMovie = getPopularMovies(movie);
   console.log("new movie", getNewMovie)
-
 
   //Display Options
   const movieDescription = `    
@@ -121,30 +170,18 @@ app.displayQandA = (movie) => {
         </div>
         </section>
   `
-  // REMOVED FROM movieDescription AS WE ARE USING THE SAME BUTTON
-  //   <div class="submitOptions">
-  //     <button id="nextQuestion">Next Question</button>
-  //   </div>
 
   app.quizDivElement.innerHTML = movieDescription;
-  //app.quizDivElement.appendChild(movieDescription);               //WHY WE DON'T NEED THIS LINE
 }
-
-//Method to Get Player's answer
-app.getPlayerAnswer = () => {
-  const playerAnswer = document.querySelector('input[name="choice"]:checked').value;
-  console.log("Player's Answer:", playerAnswer);
-}
-
 //#endregion
 
-//#region TheGame
-//#region startGame
+//#region GameLogic
 app.startGame = (movie) => {
   //event listener for the start button
   app.startButtonElement.addEventListener("click", function () {
     console.log('Game Started');
     document.querySelector('h2').innerHTML = '';
+    app.messageH4.innerHTML = '';
 
     // 1.2 get the userName
     app.getUserName();
@@ -160,29 +197,34 @@ app.startGame = (movie) => {
 
     // Call 1st Question - Done in init()
     console.log(movie);
+
+    // selecting poster with random movie
+    app.getPoster();
     
     // Display QandA
     app.displayQandA(movie);
     
-    // selecting poster with random movie
-    app.getPoster();
-
-    //Change ID and InnerText of the button
-    app.startButtonElement.id = 'nextQuestion';
-    app.startButtonElement.innerText = 'Next Question';
-    
     // Empty the answerArray
     app.answerArray = [];
 
-    document.querySelectorAll(".choiceOption").checked = "false";            // REMOVE JUST TO CHECK CODE WORKING ??????
+    document.querySelectorAll(".choiceOption").checked = "false";           
+    app.nextQuestion();
   });
+
+  app.nextQuestion = (movie) => {
+    app.nextButtonElement.addEventListener("click", function () {
+      app.nextButtonElement = document.getElementById('nextQuestion');
+      app.checkAnswers();
+      setInterval(100);
+      
+      app.getPoster();
+      app.displayQandA(movie);
+      
+    })
+  }
 }
 //#endregion
 
-//#region Next Question
-
-//#endregion
-//#endregion
 
 //#region Get Popular Movies
 async function getPopularMovies() {
@@ -211,110 +253,11 @@ async function getPopularMovies() {
   app.movieId = randomMovieObj.id;
   app.movieTitle = randomMovieObj.title;
 
-  //------ THEO
   app.startGame(randomMovieObj);
-  //app.nextQuestion(randomMovieObj);
-  return (randomMovieObj);
-
-
-  
-
-  // //DESTRUCTURING THE RANDOM MOVIE OBJ TO GET SPECIFIC DATA
-  // const { id, original_title, overview, poster_path, release_date } = randomMovieObj;
-  // //return { id, original_title, overview, poster_path, release_date } = randomMovieObj;
-
-// }
-
-
-//#region Get 1 Movie
-// app.getMovie = () => {
-//     app.movieId = app.getRandomNumber(200000);
-//     app.apiUrl = `https://api.themoviedb.org/3/movie/${app.movieId}`;
-//     app.apiKey = "00c9d839153d1b6c3b376514c7334065";
-
-
-//     const url = new URL(app.apiUrl);
-//     url.search = new URLSearchParams({
-//         api_key: app.apiKey,
-//     })
-
-//     fetch(url)
-//         .then((response) => {
-//             return response.json();
-//         })
-//         .then((jsonResponse) => {
-//             console.log (jsonResponse);
-//             // console.log(jsonResponse.original_title);
-//             // console.log(jsonResponse.release_date);
-//             // console.log(jsonResponse.release_date.substring(0, 4));
-//             // console.log(parseInt(jsonResponse.release_date.substring(0, 4)) + 1);
-//             // app.displayTitle("just checking", jsonResponse.original_title);
-//             return jsonResponse;
-
-//             //TESTING APPENDING FOR CLICK EVENT
-//             // const titleParent = document.querySelector('.homeParent');
-//             // const randomTitle = document.createElement('p');
-
-//             // randomTitle.innerHTML = `
-//             //     <span>
-//             //     ${jsonResponse.original_title}
-//             //     </span>
-//             // `
-//             // titleParent.appendChild(randomTitle);
-//         })
-// };
-//#endregion
-
-
-  // console.log(id);
-  // console.log(original_title);
-  // console.log(overview);
-  // console.log(poster_path);
-  // console.log(release_date);   
-
-
-
+  app.nextQuestion(randomMovieObj);
 }
 //#endregion
 
-//#region OLD GETMOVIE 
-// app.getMovie = () => {
-//     app.movieId = app.getRandomNumber(200000);
-//     app.apiUrl = `https://api.themoviedb.org/3/movie/${app.movieId}`;
-//     app.apiKey = "00c9d839153d1b6c3b376514c7334065";
-
-
-//     const url = new URL(app.apiUrl);
-//     url.search = new URLSearchParams({
-//         api_key: app.apiKey,
-//     })
-
-//     fetch(url)
-//         .then((response) => {
-//             return response.json();
-//         })
-//         .then((jsonResponse) => {
-//             console.log (jsonResponse);
-//             // console.log(jsonResponse.original_title);
-//             // console.log(jsonResponse.release_date);
-//             // console.log(jsonResponse.release_date.substring(0, 4));
-//             // console.log(parseInt(jsonResponse.release_date.substring(0, 4)) + 1);
-//             // app.displayTitle("just checking", jsonResponse.original_title);
-//             return jsonResponse;
-
-//             //TESTING APPENDING FOR CLICK EVENT
-//             // const titleParent = document.querySelector('.homeParent');
-//             // const randomTitle = document.createElement('p');
-
-//             // randomTitle.innerHTML = `
-//             //     <span>
-//             //     ${jsonResponse.original_title}
-//             //     </span>
-//             // `
-//             // titleParent.appendChild(randomTitle);
-//         })
-// };
-//#endregion
 
 //#region GETPOSTER
 app.getPoster = () => {
@@ -347,13 +290,9 @@ app.init = () => {
   getPopularMovies();
   app.popularMovies = [];
 
-  //Global Variables
-  app.userName;
+  // app.userName;
   app.answer;
   app.answerArray = [];
-
-
-
 
   app.questionType1 = "When was the release date for this movie poster shown?";
   app.questionType2 = "abc";
@@ -367,7 +306,6 @@ app.init = () => {
     app.questionType4,
   ];
 
-
   // THERE IS A NAME FOR THIS ???????????????
   app.userNameElement = document.querySelector('input');
 
@@ -378,17 +316,8 @@ app.init = () => {
   app.errorElement = document.getElementById('errorMessage');
 
   app.questionElement = document.querySelector('h3');
-  
-
-
-
-
-
-
-
-  //app.startGame();
-  // app.getMovie();
-
+  app.messageParent = document.querySelector('.quizResult');
+  app.messageH4 = document.createElement('h4');
 }
 
 app.init();
