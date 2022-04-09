@@ -170,8 +170,10 @@ app.displayQandA = (movie) => {
           <div class="quizChoices">
             <input type="radio" id="choiceText5" class="choiceOption" name="choice" value="${app.answerArray[4]}">
             <label for="choiceText5">${app.answerArray[4]}</label>
-          </div>
-          <p id="playerAnswer"></p>
+          </div>   
+          <div class="textConfirmation">
+              <p id="answerConfirmation">Please select an option!</p>
+          </div> 
         </div>
         </section>
   `
@@ -253,33 +255,52 @@ app.startGame = (movie) => {
 
 
   app.checkPlayersRadioButtonSelection = () => {
-    let playerAnswer = document.querySelector('#result');
-    console.log('222 cPRBS');
+    // let playerAnswer = document.querySelector('');
+
+
+    
     document.querySelector('.quizOptions').addEventListener('change', function (event) {
       let usersOptionInForm = event.target;
-      let message;
-      switch (usersOptionInForm.id) {
-        case 'choiceText1':
-          message = 'The 1 radio button changed';
-          break;
-        case 'choiceText2':
-          message = 'The 2 radio button changed';
-          break;
-        case 'choiceText3':
-          message = 'The 3 radio button changed';
-          break;
-        case 'choiceText4':
-          message = 'The 4 radio button changed';
-          break;
-        case 'choiceText5':
-          message = 'The 5 radio button changed';
-          break;
-        default:
-          message = 'Select an alternative';
-      }
-      console.log(usersOptionInForm.id)
-      // playerAnswer.textContent = message;
-      console.log('Option 2 cPRBS message');
+
+      // let message;
+     
+      // switch (usersOptionInForm.id) {
+      //   case 'choiceText1':
+      //     message = 'The 1 radio button changed';
+      //     break;
+      //   case 'choiceText2':
+      //     message = 'The 2 radio button changed';
+      //     break;
+      //   case 'choiceText3':
+      //     message = 'The 3 radio button changed';
+      //     break;
+      //   case 'choiceText4':
+      //     // value = usersOptionInForm.id.value;
+      //     message = 'The 4 radio button changed';
+      //     break;
+      //   case 'choiceText5':
+      //     message = 'The 5 radio button changed';
+      //     break;
+      //   default:
+      //     message = 'Select an alternative';
+      // }
+
+       console.log("Elle is curious", usersOptionInForm);
+       console.log("id", usersOptionInForm.id);
+       console.log("value", usersOptionInForm.value);
+
+      // app.anwserConfirmationText.innerText = usersOptionInForm.value;
+      
+      // app.anwserConfirmationElement.appendChild(app.anwserConfirmationText);
+
+      // app.answerConfirmation
+      app.anwserConfirmationElement = document.getElementById('answerConfirmation');
+      // app.anwserConfirmationText = document.createElement('h3');
+      app.anwserConfirmationElement.innerText = `
+      You have selected ${usersOptionInForm.value}. To check your 
+      answer please press Next Question.`;
+
+      console.log('------');
     });
   }
 
@@ -380,6 +401,10 @@ app.init = () => {
   app.questionElement = document.querySelector('h3');
   app.messageParent = document.querySelector('.quizResult');
   app.messageH4 = document.createElement('h4');
+
+  
+
+
 
   // app.radioButtonElements = document.querySelector(".quizOptions");
 }
