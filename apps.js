@@ -67,9 +67,11 @@ app.getQuestion = () => {
 // Method to get 5 Answers. 1 correct and 4 incorrect
 app.getAnswers = (movie) => {
   // 2.3 Get correct and wrong options and store to an answerArray
+  app.answerArray = [];
   app.answer = parseInt(movie.release_date.substring(0, 4));
   app.answerArray.push(app.answer);
   console.log("right answer", app.answer);
+  console.log("what is this", movie);
 
   // 2.4 generate 4 incorrect answers
   for (let wa = 1; wa <= 4; wa++) {
@@ -124,12 +126,14 @@ app.checkAnswers = () => {
 }
 
 
+
+
 // Method to display the Question and the 5 answer options and the buttons
 app.displayQandA = (movie) => {
   // Clean div.quiz
-  app.quizDivElement.innerHTML = '';
   app.startButtonElement.classList.add('btnDisappear');
   app.nextButtonElement.classList.add('btnAppear');
+  app.quizDivElement.innerHTML = '';
 
   // Calling the app.getAnswers()
   const answersOptions = app.getAnswers(movie);
@@ -220,7 +224,6 @@ app.startGame = (movie) => {
       
       app.getPoster();
       app.displayQandA(movie);
-      
     })
   }
 }
@@ -292,8 +295,8 @@ app.init = () => {
   app.popularMovies = [];
 
   // app.userName;
-  app.answer;
-  app.answerArray = [];
+  // app.answer;
+  
 
   app.questionType1 = "When was the release date for this movie poster shown?";
   app.questionType2 = "abc";
