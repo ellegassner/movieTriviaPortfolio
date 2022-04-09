@@ -229,14 +229,12 @@ app.startGame = (movie) => {
     app.nextButtonElement.addEventListener("click", function () {
       console.log("--------------START nextQuestion------------------");        //THEO same as startGame 
       console.log("movie 1 (from start of nextQuestion)", movie)
+
+      app.nextButtonElement.disabled = true; 
       app.nextButtonElement = document.getElementById('nextQuestion');
       app.checkAnswers();
-      // setInterval(1000);
+ 
       
-      
-      
-      // // // getPopularMovies(movie);
-      // // // console.log("movie after calling getPopularMovies (from nextQuestion)", movie);
       app.getPoster();
       app.displayQandA(movie);
       console.log("movie 1after displayQandA (from nextQuestion)", movie);
@@ -261,46 +259,14 @@ app.startGame = (movie) => {
     
     document.querySelector('.quizOptions').addEventListener('change', function (event) {
       let usersOptionInForm = event.target;
-
-      // let message;
-     
-      // switch (usersOptionInForm.id) {
-      //   case 'choiceText1':
-      //     message = 'The 1 radio button changed';
-      //     break;
-      //   case 'choiceText2':
-      //     message = 'The 2 radio button changed';
-      //     break;
-      //   case 'choiceText3':
-      //     message = 'The 3 radio button changed';
-      //     break;
-      //   case 'choiceText4':
-      //     // value = usersOptionInForm.id.value;
-      //     message = 'The 4 radio button changed';
-      //     break;
-      //   case 'choiceText5':
-      //     message = 'The 5 radio button changed';
-      //     break;
-      //   default:
-      //     message = 'Select an alternative';
-      // }
-
-       console.log("Elle is curious", usersOptionInForm);
-       console.log("id", usersOptionInForm.id);
-       console.log("value", usersOptionInForm.value);
-
-      // app.anwserConfirmationText.innerText = usersOptionInForm.value;
-      
-      // app.anwserConfirmationElement.appendChild(app.anwserConfirmationText);
-
-      // app.answerConfirmation
+    
       app.anwserConfirmationElement = document.getElementById('answerConfirmation');
-      // app.anwserConfirmationText = document.createElement('h3');
+
       app.anwserConfirmationElement.innerText = `
       You have selected ${usersOptionInForm.value}. To check your 
       answer please press Next Question.`;
 
-      console.log('------');
+     app.nextButtonElement.disabled = false; 
     });
   }
 
