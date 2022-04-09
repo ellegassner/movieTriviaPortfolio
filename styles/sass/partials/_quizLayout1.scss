@@ -8,10 +8,10 @@
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    padding: 5% 0 10% 0;
+    padding: 0;
 
     .moviePoster {
-        flex-basis: 30%;
+        flex-basis: 25%;
     }
 
     .quizOptions {
@@ -49,8 +49,7 @@
     }
 }
 
+
 #nextQuestion {
-    position: absolute;
-    bottom: 100px;
-    right: 0px;
+    margin: 10px auto;
 }

@@ -67,9 +67,11 @@ app.getQuestion = () => {
 // Method to get 5 Answers. 1 correct and 4 incorrect
 app.getAnswers = (movie) => {
   // 2.3 Get correct and wrong options and store to an answerArray
+  app.answerArray = [];
   app.answer = parseInt(movie.release_date.substring(0, 4));
   app.answerArray.push(app.answer);
   console.log("right answer", app.answer);
+  console.log("first movie object", movie);
 
   // 2.4 generate 4 incorrect answers
   for (let wa = 1; wa <= 4; wa++) {
@@ -129,15 +131,20 @@ app.checkAnswers = () => {
 // Method to display the Question and the 5 answer options and the buttons
 app.displayQandA = (movie) => {
   // Clean div.quiz
+  app.startButtonElement.classList.add('btnDisappear');
+  app.nextButtonElement.classList.add('btnAppear');
   app.quizDivElement.innerHTML = '';
-
-  // Calling the app.getAnswers()
-  const answersOptions = app.getAnswers(movie);
-  console.log('Answer Options:', answersOptions);
+  app.answerArray = [];
 
   // Calling the async func getPopularMovies
   const getNewMovie = getPopularMovies(movie);
   console.log("new movie", getNewMovie)
+  
+  // Calling the app.getAnswers()
+  const answersOptions = app.getAnswers(movie);
+  console.log('Answer Options:', answersOptions);
+
+
 
   //Display Options
   const movieDescription = `    
@@ -145,7 +152,7 @@ app.displayQandA = (movie) => {
       <h3>When was the release date for this movie poster shown?</h3>
       <h4>${app.movieTitle}</h4>
       <div class="quizChild">
-        <img src="" alt="" id="moviePoster" class="moviePoster">
+          <img src="" alt="" id="moviePoster" class="moviePoster">
         <div class="quizOptions">
           <div class="quizChoices">
             <input type="radio" id="choiceText1" class="choiceOption" name="choice" value="${app.answerArray[0]}">
@@ -199,7 +206,7 @@ app.startGame = (movie) => {
     console.log(movie);
 
     // selecting poster with random movie
-    app.getPoster();
+    app.getPoster(movie);
     
     // Display QandA
     app.displayQandA(movie);
@@ -207,19 +214,21 @@ app.startGame = (movie) => {
     // Empty the answerArray
     app.answerArray = [];
 
-    document.querySelectorAll(".choiceOption").checked = "false";           
+    document.querySelectorAll(".choiceOption").checked = "false";        
     app.nextQuestion();
   });
+
 
   app.nextQuestion = (movie) => {
     app.nextButtonElement.addEventListener("click", function () {
       app.nextButtonElement = document.getElementById('nextQuestion');
       app.checkAnswers();
       setInterval(100);
+      console.log("i'm here", movie)
       
+      getPopularMovies(movie);
       app.getPoster();
       app.displayQandA(movie);
-      
     })
   }
 }
@@ -291,8 +300,8 @@ app.init = () => {
   app.popularMovies = [];
 
   // app.userName;
-  app.answer;
-  app.answerArray = [];
+  // app.answer;
+  
 
   app.questionType1 = "When was the release date for this movie poster shown?";
   app.questionType2 = "abc";
@@ -311,6 +320,7 @@ app.init = () => {
 
   app.startButtonElement = document.getElementById('startButton');
   app.nextButtonElement = document.getElementById('nextQuestion');
+  app.nextButtonElement.classList.add('btnDisappear');
 
   app.quizDivElement = document.getElementById('quiz');
   app.errorElement = document.getElementById('errorMessage');

@@ -1,3 +1,9 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
 
 .navBar {
     display: flex;
@@ -56,6 +62,17 @@ button {
     }
 }
 
+.btnDisappear {
+    display: none;
+    border: none;
+}
+
+.btnAppear {
+    display: block;
+    border: 2px solid $styleFontColor;
+}
+
 .footerParent {
     margin-top: 15%;
 }
+
