@@ -134,6 +134,7 @@ app.displayQandA = (movie) => {
   app.startButtonElement.classList.add('btnDisappear');
   app.nextButtonElement.classList.add('btnAppear');
   app.quizDivElement.innerHTML = '';
+  app.answerArray = [];
 
   // Calling the app.getAnswers()
   const answersOptions = app.getAnswers(movie);
@@ -203,7 +204,7 @@ app.startGame = (movie) => {
     console.log(movie);
 
     // selecting poster with random movie
-    app.getPoster();
+    app.getPoster(movie);
     
     // Display QandA
     app.displayQandA(movie);
@@ -221,7 +222,9 @@ app.startGame = (movie) => {
       app.nextButtonElement = document.getElementById('nextQuestion');
       app.checkAnswers();
       setInterval(100);
+      console.log("i'm here", movie)
       
+      getPopularMovies(movie);
       app.getPoster();
       app.displayQandA(movie);
     })
