@@ -70,8 +70,8 @@ app.getAnswers = (movie) => {
   app.answerArray = [];
   app.answer = parseInt(movie.release_date.substring(0, 4));
   app.answerArray.push(app.answer);
-  console.log("right answer", app.answer);
-  console.log("first movie object", movie);
+  // // // // console.log("right answer (from getAnswer)", app.answer);
+  // // // // console.log("first movie object (from getAnswer)", movie);
 
   // 2.4 generate 4 incorrect answers
   for (let wa = 1; wa <= 4; wa++) {
@@ -83,13 +83,11 @@ app.getAnswers = (movie) => {
     app.answerArray.push(newWrongAnswer);
   }
   app.answerArray.sort();
+  console.log("-------END GET ANSWER--------------");                                  // Theo
   return app.answerArray;
 }
 
 app.checkAnswers = () => {
-  app.player.answer = document.querySelector('input[name="choice"]:checked').value;
-  console.log("checked value", app.player.answer);
-
     if (parseInt(app.player.answer) === app.answer) {
       // app.player.score++;
       
@@ -103,8 +101,8 @@ app.checkAnswers = () => {
       app.messageParent.appendChild(app.messageH4);
       // messageParent.appendChild(app.scoreCounter);
 
-      console.log("right answer", app.messageH4);
-      // console.log("score right", app.scoreCounter);
+      console.log("right answer (from checkAnswers)", app.messageH4);
+      // console.log("score right (from checkAnswers)", app.scoreCounter);
 
     } else {
       app.player.score;
@@ -120,8 +118,8 @@ app.checkAnswers = () => {
       app.messageParent.appendChild(app.messageH4);
       // messageParent.appendChild(app.scoreCounter);
 
-      console.log("wrong answer", app.messageH4);
-      // console.log("score wrong", app.scoreCounter);
+      console.log("wrong answer (from checkAnswers)", app.messageH4);
+      // console.log("score wrong (from checkAnswers)", app.scoreCounter);
     }
 }
 
@@ -136,14 +134,13 @@ app.displayQandA = (movie) => {
   app.quizDivElement.innerHTML = '';
   app.answerArray = [];
 
-  // Calling the async func getPopularMovies
+  // Calling the async func getPopularMovies                                //Already exist in init   (NOW we have 2 movies)
   const getNewMovie = getPopularMovies(movie);
-  console.log("new movie", getNewMovie)
+  // // // // console.log("new movie (from displayQandA", getNewMovie)            
   
   // Calling the app.getAnswers()
   const answersOptions = app.getAnswers(movie);
-  console.log('Answer Options:', answersOptions);
-
+  // // // // console.log('Answer Options (from displayQandA):', answersOptions);
 
 
   //Display Options
@@ -174,6 +171,7 @@ app.displayQandA = (movie) => {
             <input type="radio" id="choiceText5" class="choiceOption" name="choice" value="${app.answerArray[4]}">
             <label for="choiceText5">${app.answerArray[4]}</label>
           </div>
+          <p id="playerAnswer"></p>
         </div>
         </section>
   `
@@ -192,7 +190,7 @@ app.startGame = (movie) => {
 
     // 1.2 get the userName
     app.getUserName();
-    console.log('Player Name:', app.getUserName());
+    // // // // console.log('Player Name:', app.getUserName());
 
     // 2.1 get Question
     const quest = app.getQuestion();
@@ -200,10 +198,10 @@ app.startGame = (movie) => {
     // Append Question
     const question = document.createElement('h2');
     question.innerText = quest;
-    console.log('Question:', question.innerText);
+    // // // // console.log('Question:', question.innerText);
 
     // Call 1st Question - Done in init()
-    console.log(movie);
+    console.log('Movie 1 (from startGame)', movie);
 
     // selecting poster with random movie
     app.getPoster(movie);
@@ -211,26 +209,80 @@ app.startGame = (movie) => {
     // Display QandA
     app.displayQandA(movie);
     
-    // Empty the answerArray
+    // Empty the answerArray and Radio buttons
     app.answerArray = [];
+    // // // // document.querySelectorAll(".choiceOption").checked = "false";  
+    // // // app.radioButtonElements.querySelectorAll(".choiceOption").checked = "false"; 
 
-    document.querySelectorAll(".choiceOption").checked = "false";        
+    // Call nextQuestioButton Event Listener
     app.nextQuestion();
-  });
+    // Call checkPlayersRadioButtonSelection Event Listener
+    app.checkPlayersRadioButtonSelection();
 
+    console.log(`--------------END startGame------------------
+      `);
+  });
 
   app.nextQuestion = (movie) => {
     app.nextButtonElement.addEventListener("click", function () {
+      console.log("--------------START nextQuestion------------------");        //THEO same as startGame 
+      console.log("movie 1 (from start of nextQuestion)", movie)
       app.nextButtonElement = document.getElementById('nextQuestion');
       app.checkAnswers();
-      setInterval(100);
-      console.log("i'm here", movie)
+      // setInterval(1000);
       
-      getPopularMovies(movie);
+      
+      
+      // // // getPopularMovies(movie);
+      // // // console.log("movie after calling getPopularMovies (from nextQuestion)", movie);
       app.getPoster();
       app.displayQandA(movie);
-    })
+      console.log("movie 1after displayQandA (from nextQuestion)", movie);
+
+      // Call checkPlayersRadioButtonSelection Event Listener
+      app.checkPlayersRadioButtonSelection();
+
+      
+
+      console.log(`--------------END nextQuestion------------------
+      `);
+    });
   }
+
+  
+
+
+  app.checkPlayersRadioButtonSelection = () => {
+    let playerAnswer = document.querySelector('#result');
+    console.log('222 cPRBS');
+    document.querySelector('.quizOptions').addEventListener('change', function (event) {
+      let usersOptionInForm = event.target;
+      let message;
+      switch (usersOptionInForm.id) {
+        case 'choiceText1':
+          message = 'The 1 radio button changed';
+          break;
+        case 'choiceText2':
+          message = 'The 2 radio button changed';
+          break;
+        case 'choiceText3':
+          message = 'The 3 radio button changed';
+          break;
+        case 'choiceText4':
+          message = 'The 4 radio button changed';
+          break;
+        case 'choiceText5':
+          message = 'The 5 radio button changed';
+          break;
+        default:
+          message = 'Select an alternative';
+      }
+      console.log(usersOptionInForm.id)
+      // playerAnswer.textContent = message;
+      console.log('Option 2 cPRBS message');
+    });
+  }
+
 }
 //#endregion
 
@@ -328,6 +380,8 @@ app.init = () => {
   app.questionElement = document.querySelector('h3');
   app.messageParent = document.querySelector('.quizResult');
   app.messageH4 = document.createElement('h4');
+
+  // app.radioButtonElements = document.querySelector(".quizOptions");
 }
 
 app.init();
