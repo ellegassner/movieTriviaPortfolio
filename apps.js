@@ -71,7 +71,7 @@ app.getAnswers = (movie) => {
   app.answer = parseInt(movie.release_date.substring(0, 4));
   app.answerArray.push(app.answer);
   console.log("right answer", app.answer);
-  console.log("what is this", movie);
+  console.log("first movie object", movie);
 
   // 2.4 generate 4 incorrect answers
   for (let wa = 1; wa <= 4; wa++) {
@@ -136,13 +136,15 @@ app.displayQandA = (movie) => {
   app.quizDivElement.innerHTML = '';
   app.answerArray = [];
 
+  // Calling the async func getPopularMovies
+  const getNewMovie = getPopularMovies(movie);
+  console.log("new movie", getNewMovie)
+  
   // Calling the app.getAnswers()
   const answersOptions = app.getAnswers(movie);
   console.log('Answer Options:', answersOptions);
 
-  // Calling the async func getPopularMovies
-  const getNewMovie = getPopularMovies(movie);
-  console.log("new movie", getNewMovie)
+
 
   //Display Options
   const movieDescription = `    
