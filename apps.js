@@ -124,12 +124,12 @@ app.checkAnswers = () => {
 }
 
 
-
-
 // Method to display the Question and the 5 answer options and the buttons
 app.displayQandA = (movie) => {
   // Clean div.quiz
   app.quizDivElement.innerHTML = '';
+  app.startButtonElement.classList.add('btnDisappear');
+  app.nextButtonElement.classList.add('btnAppear');
 
   // Calling the app.getAnswers()
   const answersOptions = app.getAnswers(movie);
@@ -207,9 +207,10 @@ app.startGame = (movie) => {
     // Empty the answerArray
     app.answerArray = [];
 
-    document.querySelectorAll(".choiceOption").checked = "false";           
+    document.querySelectorAll(".choiceOption").checked = "false";        
     app.nextQuestion();
   });
+
 
   app.nextQuestion = (movie) => {
     app.nextButtonElement.addEventListener("click", function () {
@@ -311,6 +312,7 @@ app.init = () => {
 
   app.startButtonElement = document.getElementById('startButton');
   app.nextButtonElement = document.getElementById('nextQuestion');
+  app.nextButtonElement.classList.add('btnDisappear');
 
   app.quizDivElement = document.getElementById('quiz');
   app.errorElement = document.getElementById('errorMessage');

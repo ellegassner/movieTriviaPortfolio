@@ -57,13 +57,14 @@ h2 {
 h3,
 h4 {
     font-family: $mainFont;
-    font-size: 3rem;
+    font-size: 2.5rem;
     line-height: 4rem;
     text-align: center;
 }
 
 h4 {
     color: $styleFontColor;
+    margin: 15px 0;
 }
 
 h5 {
