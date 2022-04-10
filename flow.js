@@ -113,14 +113,12 @@ app.displayQandA = (movie) => {
     app.quizDivElement.innerHTML = '';
     app.answerArray = [];
     // movie = {};
-    // // Calling the async func getPopularMovies                                //Already exist in init   (NOW we have 2 movies)
-    // const getNewMovie = getPopularMovies(movie);
-    // // // // // console.log("new movie (from displayQandA", getNewMovie)            
 
     // Calling the app.getAnswers()
     const answersOptions = app.getAnswers(movie);
     console.log('Answer Options (from displayQandA):', answersOptions);
     app.getPoster(movie);
+    
     //Display Options
     const movieDescription = `    
     <section class="quizParent" id="quizParent">
@@ -159,11 +157,11 @@ app.displayQandA = (movie) => {
 }
 //#endregion
 //#region GameLogic
-app.startGame = () => {
+app.startGame = (movie) => {
     //event listener for the start button
     app.startButtonElement.addEventListener("click", function () {
         console.log('Game Started');
-        console.log('Score', app.player.score);
+        // console.log('Score', app.player.score);
         document.querySelector('h2').innerHTML = '';
         app.messageH4.innerHTML = '';
         //Get 1st Movie
