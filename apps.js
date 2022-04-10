@@ -64,11 +64,15 @@ app.getQuestion = () => {
   return app.questions[index];
 }
 
+
+
 // Method to get 5 Answers. 1 correct and 4 incorrect
 app.getAnswers = (movie) => {
+  console.log('mov', movie);
   // 2.3 Get correct and wrong options and store to an answerArray
   app.answerArray = [];
   app.answer = parseInt(movie.release_date.substring(0, 4));
+  console.log(app.answer);
   app.answerArray.push(app.answer);
   // // // // console.log("right answer (from getAnswer)", app.answer);
   // // // // console.log("first movie object (from getAnswer)", movie);
@@ -88,39 +92,41 @@ app.getAnswers = (movie) => {
 }
 
 app.checkAnswers = () => {
-    if (parseInt(app.player.answer) === app.answer) {
-      // app.player.score++;
-      
-      app.messageH4.innerHTML = `
+  console.log("player answer", app.playerAnswer);
+  console.log("right answer", app.answer)
+  if (parseInt(app.playerAnswer) === app.answer) {
+    
+    // app.player.score++;
+
+    app.messageH4.innerHTML = `
       Congrats, you are super smart!
       `
 
-      // app.scoreCounter.innerHTML = `
-      // Score: ${app.player.score}
-      // `
-      app.messageParent.appendChild(app.messageH4);
-      // messageParent.appendChild(app.scoreCounter);
+    // app.scoreCounter.innerHTML = `
+    // Score: ${app.player.score}
+    // `
+    app.messageParent.appendChild(app.messageH4);
+    // messageParent.appendChild(app.scoreCounter);
 
-      console.log("right answer (from checkAnswers)", app.messageH4);
-      // console.log("score right (from checkAnswers)", app.scoreCounter);
+    console.log("right answer (from checkAnswers)", app.messageH4);
+    // console.log("score right (from checkAnswers)", app.scoreCounter);
 
-    } else {
-      app.player.score;
+  } else {
+    app.player.score;
 
-      app.messageH4.innerHTML = `
+    app.messageH4.innerHTML = `
       No points for you, try again!
       `
 
-      // app.scoreCounter.innerHTML = `
-      // Score: ${app.player.score}
-      // `
+    // app.scoreCounter.innerHTML = `
+    // Score: ${app.player.score}
+    // `
 
-      app.messageParent.appendChild(app.messageH4);
-      // messageParent.appendChild(app.scoreCounter);
-
-      console.log("wrong answer (from checkAnswers)", app.messageH4);
-      // console.log("score wrong (from checkAnswers)", app.scoreCounter);
-    }
+    app.messageParent.appendChild(app.messageH4);
+    // messageParent.appendChild(app.scoreCounter);
+    console.log("wrong answer (from checkAnswers)", app.messageH4);
+    // console.log("score wrong (from checkAnswers)", app.scoreCounter);
+  }
 }
 
 
@@ -132,16 +138,12 @@ app.displayQandA = (movie) => {
   app.startButtonElement.classList.add('btnDisappear');
   app.nextButtonElement.classList.add('btnAppear');
   app.quizDivElement.innerHTML = '';
-  app.answerArray = [];
-
-  // Calling the async func getPopularMovies                                //Already exist in init   (NOW we have 2 movies)
-  const getNewMovie = getPopularMovies(movie);
-  // // // // console.log("new movie (from displayQandA", getNewMovie)            
+  app.answerArray = [];          
   
-  // Calling the app.getAnswers()
-  const answersOptions = app.getAnswers(movie);
-  // // // // console.log('Answer Options (from displayQandA):', answersOptions);
 
+  const answersOptions = app.getAnswers(movie);
+  console.log('Answer Options (from displayQandA):', answersOptions);
+  app.getPoster(movie);
 
   //Display Options
   const movieDescription = `    
@@ -181,6 +183,8 @@ app.displayQandA = (movie) => {
   `
 
   app.quizDivElement.innerHTML = movieDescription;
+  app.checkPlayersRadioButtonSelection(); /////**** now displaying this func */
+  app.nextQuestion();
 }
 //#endregion
 
@@ -191,6 +195,9 @@ app.startGame = (movie) => {
     console.log('Game Started');
     document.querySelector('h2').innerHTML = '';
     app.messageH4.innerHTML = '';
+
+    const movie = app.getPopularMovies();
+    console.log('Start Start', movie);
 
     // 1.2 get the userName
     app.getUserName();
@@ -205,49 +212,51 @@ app.startGame = (movie) => {
     // // // // console.log('Question:', question.innerText);
 
     // Call 1st Question - Done in init()
-    console.log('Movie 1 (from startGame)', movie);
+    // console.log('Movie 1 (from startGame)', movie);
 
     // selecting poster with random movie
-    app.getPoster(movie);
+    // app.getPoster(movie);
     
     // Display QandA
-    app.displayQandA(movie);
+    // app.displayQandA(movie);
     
     // Empty the answerArray and Radio buttons
-    app.answerArray = [];
+    // app.answerArray = [];
     // // // // document.querySelectorAll(".choiceOption").checked = "false";  
     // // // app.radioButtonElements.querySelectorAll(".choiceOption").checked = "false"; 
 
     // Call nextQuestioButton Event Listener
-    app.nextQuestion();
+    // app.nextQuestion();
     // Call checkPlayersRadioButtonSelection Event Listener
-    app.checkPlayersRadioButtonSelection();
+    // app.checkPlayersRadioButtonSelection();
 
     console.log(`--------------END startGame------------------
       `);
   });
 
-  app.nextQuestion = (movie) => {
+  app.nextQuestion = () => {
     app.nextButtonElement.addEventListener("click", function () {
-      console.log("--------------START nextQuestion------------------");        //THEO same as startGame 
-      console.log("movie 1 (from start of nextQuestion)", movie)
+      // console.log("--------------START nextQuestion------------------");        //THEO same as startGame 
+      // console.log("movie 1 (from start of nextQuestion)", movie)
 
       app.nextButtonElement.disabled = true; 
       app.nextButtonElement = document.getElementById('nextQuestion');
       app.checkAnswers();
- 
-      
-      app.getPoster();
-      app.displayQandA(movie);
-      console.log("movie 1after displayQandA (from nextQuestion)", movie);
+
+      app.newMovieObject = app.getPopularMovies();
+      // console.log('Is this the new movie', app.newMovieObject);
+
+      // app.getPoster();
+      // app.displayQandA(movie);
+      // console.log("movie 1after displayQandA (from nextQuestion)", movie);
 
       // Call checkPlayersRadioButtonSelection Event Listener
-      app.checkPlayersRadioButtonSelection();
+      // app.checkPlayersRadioButtonSelection();
 
       
 
-      console.log(`--------------END nextQuestion------------------
-      `);
+      // console.log(`--------------END nextQuestion------------------
+      // `);
     });
   }
 
@@ -256,9 +265,6 @@ app.startGame = (movie) => {
 
   app.checkPlayersRadioButtonSelection = () => {
     // let playerAnswer = document.querySelector('');
-
-
-    
     document.querySelector('.quizOptions').addEventListener('change', function (event) {
       let usersOptionInForm = event.target;
     
@@ -268,7 +274,11 @@ app.startGame = (movie) => {
       You have selected ${usersOptionInForm.value}. To check your 
       answer please press Next Question.`;
 
-     app.nextButtonElement.disabled = false; 
+      app.nextButtonElement.disabled = false; 
+      app.playerAnswer = usersOptionInForm.value;
+
+      
+      // return usersOptionInForm.value;
     });
   }
 
@@ -277,37 +287,46 @@ app.startGame = (movie) => {
 
 
 //#region Get Popular Movies
-async function getPopularMovies() {
+app.getPopularMovies = () => {
   //GETTING RANDOM NUMBER FOR THE PAGE
   const pageNumber = app.getRandomNumber(100);
   const movieEndPoint = `${app.apiUrl}/discover/movie`;
-
   const movieUrl = new URL(movieEndPoint);
   movieUrl.search = new URLSearchParams({
     api_key: app.apiKey,
-    language: 'en-US', 
+    language: 'en-US',
     sort_by: 'popularity.desc',
     include_adult: false,
     include_video: false,
     page: pageNumber,
   });
+  // const movieSelection = await fetch(movieUrl)
+  // const movieData = await movieSelection.json();
+  fetch(movieUrl)
+    .then((response) => {
+      return response.json();
+    })
+    .then((movieData) => {
+      // console.log(movieData);
+      //2.2 select random movie
+      app.popularMovies = movieData.results;
+      // console.log(app.popularMovies);
+      const randomMovieObj = app.popularMovies[Math.floor(Math.random() * app.popularMovies.length)];
+      // console.log(randomMovieObj);
 
-  const movieSelection = await fetch(movieUrl)
-  const movieData = await movieSelection.json();
+      // Creating movieId and movieTitle variable to reuse for poster data
+      app.movieId = randomMovieObj.id;
+      app.movieTitle = randomMovieObj.title;
+      // app.getPoster();
+      app.displayQandA(randomMovieObj);
+      // app.getAnswers(randomMovieObj);
+      // app.startGame(randomMovieObj);
+      // app.nextQuestion(randomMovieObj);
+    });
 
-  //2.2 select random movie
-  app.popularMovies = movieData.results;
-  const randomMovieObj = app.popularMovies[Math.floor(Math.random() * app.popularMovies.length)];
-
-  // Creating movieId and movieTitle variable to reuse for poster data
-  app.movieId = randomMovieObj.id;
-  app.movieTitle = randomMovieObj.title;
-
-  app.startGame(randomMovieObj);
-  app.nextQuestion(randomMovieObj);
+  // return randomMovieObj;
 }
 //#endregion
-
 
 //#region GETPOSTER
 app.getPoster = () => {
@@ -337,7 +356,7 @@ app.getPoster = () => {
 
 
 app.init = () => {
-  getPopularMovies();
+  // getPopularMovies();
   app.popularMovies = [];
 
   // app.userName;
@@ -371,7 +390,7 @@ app.init = () => {
   app.messageH4 = document.createElement('h4');
 
   
-
+  app.startGame();
 
 
   // app.radioButtonElements = document.querySelector(".quizOptions");
