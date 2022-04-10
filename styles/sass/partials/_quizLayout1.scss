@@ -21,7 +21,7 @@
         .quizChoices {
             display: flex;
             justify-content: flex-start;
-            margin-left: 100px;
+            margin-left: 50px;
             font-size: 2.5rem;
             line-height: 4rem;
 
@@ -41,6 +41,10 @@
                     background-color: $styleFontColor;
                 }
             }            
+        }
+
+        .textConfirmation {
+            margin: 0 auto 0 50px;
         }
 
         .submitOptions {

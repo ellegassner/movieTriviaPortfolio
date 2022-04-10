@@ -38,10 +38,9 @@ app.apiKey = "00c9d839153d1b6c3b376514c7334065";
 app.player = {
   name: 'player1',
   score: 0,
-  answer: 0,
 }
 
-app.questionNumber = 1;
+app.questionNumber = 0;
 
 //#region specific functions
 // Method to return a random number until a max value
@@ -56,43 +55,37 @@ app.getRandomNumberFromInterval = (min) => {
 
 // Method to get a Player's name
 app.getPlayerName = () => {
+  // console.log(`--------------2. START getPlayerName------------------`);
+
+
   if(app.playerNameElement.value.length !== 0){
     app.player.name = app.playerNameElement.value;
   } else {
     app.player.name = 'player one';
-  }
-
+  } 
   
-  return app.player.name;
-}
+  // console.log(`--------------2. END getPlayerName------------------`);
+  return app.player.name; }
 
 // Methgod to get a question
 app.getQuestion = () => {
   const index = app.getRandomNumber(app.questions.length - 1);
-  
-  
-  
-  app.questionNumber++;                                           //NEW!!!!!! Score/#Questions
-
-
-  console.log(`--------------END getQuestion------------------`);
+  app.questionNumber++;    
   return app.questions[index];
 }
 
 // Method to get 5 Answers. 1 correct and 4 incorrect
 app.getAnswers = (movie) => {
-  console.log('mov', movie);
   // 2.3 Get correct and wrong options and store to an answerArray
   app.answerArray = [];
   app.answer = parseInt(movie.release_date.substring(0, 4));
-  console.log(app.answer);
+  console.log("Answer:", app.answer);
   app.answerArray.push(app.answer);
-  // // // // console.log("right answer (from getAnswer)", app.answer);
-  // // // // console.log("first movie object (from getAnswer)", movie);
 
   // 2.4 generate 4 incorrect answers
   for (let wa = 1; wa <= 4; wa++) {
     let newWrongAnswer = app.getRandomNumberFromInterval(app.answer - 10);
+
     // Check if wrong answer already exists in the array
     while (app.answerArray.includes(newWrongAnswer)) {
       newWrongAnswer = app.getRandomNumberFromInterval(app.answer - 10);
@@ -100,25 +93,18 @@ app.getAnswers = (movie) => {
     app.answerArray.push(newWrongAnswer);
   }
   app.answerArray.sort();
-  console.log("-------END GET ANSWER--------------");                                  // Theo
   return app.answerArray;
 }
 
 app.checkAnswers = () => {
-  console.log("player answer", app.playerAnswer);
-  console.log("right answer", app.answer);
-  console.log(`${app.player.name} before check score: ${app.player.score}`); 
-  console.log("Question Number", app.questionNumber);
-
   if (parseInt(app.playerAnswer) === app.answer) {  
     // Incresae score
-    app.player.score++;
+    // app.player.score++;
 
 
-    console.log(`${app.player.name} after check score: ${app.player.score}`);  
+    // console.log(`${app.player.name} after check score: ${app.player.score}`);  
 
-    app.messageH4.innerHTML = `Congrats, you are super smart!
-    Your score now is ${app.player.score} / 10
+    app.messageH4.innerHTML = `Congrats ${app.player.name}, you are super smart!
       `
 
     // app.scoreCounter.innerHTML = `
@@ -127,16 +113,13 @@ app.checkAnswers = () => {
     app.messageParent.appendChild(app.messageH4);
     // messageParent.appendChild(app.scoreCounter);
 
-    console.log("right answer (from checkAnswers)", app.messageH4);
-    // console.log("score right (from checkAnswers)", app.scoreCounter);
 
   } else {
     // app.player.score;
-    console.log(`${app.player.name} score: ${app.player.score}`);  
+    // console.log(`${app.player.name} score: ${app.player.score}`);  
 
     app.messageH4.innerHTML = `
-      No points for you, try again!
-      Your score now is ${app.player.score} / 10
+      Sorry ${app.player.name}, wrong answer - try again!
       `
 
     // app.scoreCounter.innerHTML = `
@@ -145,13 +128,8 @@ app.checkAnswers = () => {
 
     app.messageParent.appendChild(app.messageH4);
     // messageParent.appendChild(app.scoreCounter);
-    console.log("wrong answer (from checkAnswers)", app.messageH4);
-    // console.log("score wrong (from checkAnswers)", app.scoreCounter);
   }
-  console.log(`--------------END checkAnswers------------------`);
 }
-
-
 
 
 // Method to display the Question and the 5 answer options and the buttons
@@ -160,14 +138,9 @@ app.displayQandA = (movie) => {
   app.startButtonElement.classList.add('btnDisappear');
   app.nextButtonElement.classList.add('btnAppear');
   app.quizDivElement.innerHTML = '';
-  app.answerArray = [];          
-  
+  app.answerArray = [];      
 
   const answersOptions = app.getAnswers(movie);
-
-
-  console.log('Answer Options (from displayQandA):', answersOptions);
-
 
   app.getPoster(movie);
 
@@ -202,15 +175,14 @@ app.displayQandA = (movie) => {
             <label for="choiceText5">${app.answerArray[4]}</label>
           </div>   
           <div class="textConfirmation">
-              <p id="answerConfirmation">Please select an option!</p>
+              <p id="answerConfirmation">${app.player.name} select an option!</p>
           </div> 
         </div>
         </section>
   `
 
   app.quizDivElement.innerHTML = movieDescription;
-  app.checkPlayersRadioButtonSelection(); /////**** now displaying this func */
-  console.log(`--------------END displayQandA------------------`);
+  app.checkPlayersRadioButtonSelection(); 
   app.nextQuestion();
 }
 //#endregion
@@ -223,17 +195,12 @@ app.startGame = (movie) => {
 
     // 1.2 get the player's name
     app.getPlayerName();
-    console.log(`${app.player.name} start score: ${app.player.score}`);  
-
-
+    // console.log(`${app.player.name} start score: ${app.player.score}`);  
 
     document.querySelector('h2').innerHTML = '';
     app.messageH4.innerHTML = '';
 
     const movie = app.getPopularMovies();
-    console.log('Start Start', movie);                          //Returning Undefined
-
-    
 
     // 2.1 get Question
     const quest = app.getQuestion();
@@ -241,59 +208,23 @@ app.startGame = (movie) => {
     // Append Question
     const question = document.createElement('h2');
     question.innerText = quest;
-    // // // // console.log('Question:', question.innerText);
-
-    // Call 1st Question - Done in init()
-    // console.log('Movie 1 (from startGame)', movie);
-
-    // selecting poster with random movie
-    // app.getPoster(movie);
-    
-    // Display QandA
-    // app.displayQandA(movie);
-    
-    // Empty the answerArray and Radio buttons
-    // app.answerArray = [];
-    // // // // document.querySelectorAll(".choiceOption").checked = "false";  
-    // // // app.radioButtonElements.querySelectorAll(".choiceOption").checked = "false"; 
-
-    // Call nextQuestioButton Event Listener
-    // app.nextQuestion();
-    // Call checkPlayersRadioButtonSelection Event Listener
-    // app.checkPlayersRadioButtonSelection();
-
-    console.log(`--------------END startGame------------------`);
   });
 
   app.nextQuestion = () => {
     app.nextButtonElement.addEventListener("click", function () {
-      // console.log("--------------START nextQuestion------------------");        //THEO same as startGame 
-      // console.log("movie 1 (from start of nextQuestion)", movie)
+      //Check answer
+      app.checkAnswers();     
+
+       // 2.1 get Question
+      const quest = app.getQuestion();
 
       app.nextButtonElement.disabled = true; 
       app.nextButtonElement = document.getElementById('nextQuestion');
-      app.checkAnswers();
 
-      // Get 2nd+ movies
+      // Get 2nd+ movie;
       app.newMovieObject = app.getPopularMovies();
-      // console.log('Is this the new movie', app.newMovieObject);
-
-      // app.getPoster();
-      // app.displayQandA(movie);
-      // console.log("movie 1after displayQandA (from nextQuestion)", movie);
-
-      // Call checkPlayersRadioButtonSelection Event Listener
-      // app.checkPlayersRadioButtonSelection();
-
-      
-
-      console.log(`--------------END nextQuestion------------------
-      // `);
     });
   }
-
-  
-
 
   app.checkPlayersRadioButtonSelection = () => {
     document.querySelector('.quizOptions').addEventListener('change', function (event) {
@@ -301,21 +232,19 @@ app.startGame = (movie) => {
     
       app.anwserConfirmationElement = document.getElementById('answerConfirmation');
 
-      app.anwserConfirmationElement.innerText = `You have selected ${usersOptionInForm.value}. To check your answer please press Next Question.`;
+      app.anwserConfirmationElement.innerText = `${app.player.name}, you have selected ${usersOptionInForm.value}. To check your answer please press Next Question.`;
 
       app.nextButtonElement.disabled = false; 
       app.playerAnswer = usersOptionInForm.value;
-      console.log(`--------------END checkPlayersRadioButtonSelection EL------------------`);
     });
   }
-
 }
 //#endregion
 
 
 //#region Get Popular Movies
 app.getPopularMovies = () => {
-  //GETTING RANDOM NUMBER FOR THE PAGE
+  //Getting random number for the page
   const pageNumber = app.getRandomNumber(100);
   const movieEndPoint = `${app.apiUrl}/discover/movie`;
   const movieUrl = new URL(movieEndPoint);
@@ -327,35 +256,29 @@ app.getPopularMovies = () => {
     include_video: false,
     page: pageNumber,
   });
-  // const movieSelection = await fetch(movieUrl)
-  // const movieData = await movieSelection.json();
+
   fetch(movieUrl)
     .then((response) => {
       return response.json();
     })
     .then((movieData) => {
-      // console.log(movieData);
+
       //2.2 select random movie
       app.popularMovies = movieData.results;
-      // console.log(app.popularMovies);
-      const randomMovieObj = app.popularMovies[Math.floor(Math.random() * app.popularMovies.length)];
-      // console.log(randomMovieObj);
+
+      let  randomMovieObj = app.popularMovies[app.getRandomNumber(app.popularMovies.length)];
 
       // Creating movieId and movieTitle variable to reuse for poster data
       app.movieId = randomMovieObj.id;
       app.movieTitle = randomMovieObj.title;
-      // app.getPoster();
-      app.displayQandA(randomMovieObj);
-      // app.getAnswers(randomMovieObj);
-      // app.startGame(randomMovieObj);
-      // app.nextQuestion(randomMovieObj);
+
+      //Display Movie
+      app.displayQandA(randomMovieObj);      
     });
-    console.log(`--------------END getPopularMovies------------------`);
-  // return randomMovieObj;
 }
 //#endregion
 
-//#region GETPOSTER
+//#region GetPoster
 app.getPoster = () => {
   app.moviePosterUrl = `${app.apiUrl}/movie/${app.movieId}/images`; 
 
@@ -383,12 +306,7 @@ app.getPoster = () => {
 
 
 app.init = () => {
-  // getPopularMovies();
   app.popularMovies = [];
-
-
-  // app.answer;
-  
 
   app.questionType1 = "When was the release date for this movie poster shown?";
   app.questionType2 = "abc";
@@ -416,11 +334,8 @@ app.init = () => {
   app.messageParent = document.querySelector('.quizResult');
   app.messageH4 = document.createElement('h4');
 
-  
+  //Game Flow Starts here  
   app.startGame();
-
-
-  // app.radioButtonElements = document.querySelector(".quizOptions");
 }
 
 app.init();

@@ -351,8 +351,8 @@ body {
 }
 
 img {
-  width: 100%;
-  height: auto;
+  width: 250px;
+  height: 350px;
   display: block;
   border: 3px solid #ee693a;
   -o-object-fit: cover;
@@ -436,7 +436,7 @@ button:focus, button:active, button:hover {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  margin-left: 100px;
+  margin-left: 50px;
   font-size: 2.5rem;
   line-height: 4rem;
 }
@@ -453,6 +453,9 @@ button:focus, button:active, button:hover {
 }
 .quizChild .quizOptions .quizChoices label.correctAnswer {
   background-color: #eeab41;
+}
+.quizChild .quizOptions .textConfirmation {
+  margin: 0 auto 0 50px;
 }
 .quizChild .quizOptions .submitOptions {
   margin: 50px 0 0 100px;
@@ -532,9 +535,6 @@ button:focus, button:active, button:hover {
   }
   .quizChild .quizOptions .quizChoices {
     margin-left: 0;
-  }
-  .quizChild #answerConfirmation {
-    margin: 0 auto 0 auto;
   }
 
   .developers {
