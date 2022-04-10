@@ -22,9 +22,73 @@
         }
     }
 
-        
-
     .developers {
         flex-direction: column;
     }
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        width: 90%;
+    }
+
+    .navBar {
+        flex-direction: column;
+
+        .logo {
+            font-size: 3rem;
+            color: $correctAnswerColor;
+        }
+
+        a {
+            color: $backgroundColor;
+            font-weight: 700;
+        }
+
+    .devPage {
+        font-size: 1.5rem;
+        background-color: $correctAnswerColor;
+        padding: 6px;
+    }
+
+    }
+    h1 {
+        font-size: 2.5rem;
+        margin-right: 0;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        line-height: 3rem;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+
+    .quizChild {
+        .quizOptions {
+            .quizChoices {
+                font-size: 2rem;
+            }
+
+            .textConfirmation {
+                margin-left: 0;
+            }
+        }
+    }
+
+
+    // h3 {
+    //     font-family: $styleFont;
+    //     font-size: 3rem;
+    //     color: $styleFontColor;
+    //     margin-top: 15px;
+    // }
 }

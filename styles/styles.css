@@ -544,3 +544,55 @@ button:focus, button:active, button:hover {
             flex-direction: column;
   }
 }
+@media (max-width: 600px) {
+  .wrapper {
+    width: 90%;
+  }
+
+  .navBar {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .navBar .logo {
+    font-size: 3rem;
+    color: #ee693a;
+  }
+  .navBar a {
+    color: #2a0a4f;
+    font-weight: 700;
+  }
+  .navBar .devPage {
+    font-size: 1.5rem;
+    background-color: #ee693a;
+    padding: 6px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-right: 0;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    line-height: 3rem;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .quizChild .quizOptions .quizChoices {
+    font-size: 2rem;
+  }
+  .quizChild .quizOptions .textConfirmation {
+    margin-left: 0;
+  }
+}

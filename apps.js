@@ -147,7 +147,7 @@ app.displayQandA = (movie) => {
   //Display Options
   const movieDescription = `    
     <section class="quizParent" id="quizParent">
-      <h3>When was the release date for this movie poster shown?</h3>
+      <h3>When was this movie released?</h3>
       <h4>${app.movieTitle}</h4>
       <div class="quizChild">
         <div class="moviePoster">
