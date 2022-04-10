@@ -1,6 +1,6 @@
 .quizParent {
     background: $textBackgroundColor;
-    padding: 25px;
+    padding: 15px;
 }
 
 .quizChild {
@@ -21,9 +21,13 @@
         .quizChoices {
             display: flex;
             justify-content: flex-start;
-            margin-left: 100px;
+            margin-left: 50px;
             font-size: 2.5rem;
             line-height: 4rem;
+
+            input {
+                margin-top: 15px;
+            }
 
             label {
                 display: inline-block;
@@ -36,9 +40,11 @@
                 &.correctAnswer {
                     background-color: $styleFontColor;
                 }
-            }
+            }            
+        }
 
-            
+        .textConfirmation {
+            margin: 0 auto 0 50px;
         }
 
         .submitOptions {
@@ -51,5 +57,5 @@
 
 
 #nextQuestion {
-    margin: 10px auto;
+    margin: 25px auto 0 auto;
 }

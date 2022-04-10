@@ -37,8 +37,8 @@ body {
 }
 
 img {
-    width: 100%;
-    height: auto;
+    width: 250px;
+    height: 350px;
     display: block;
     border: 3px solid $correctAnswerColor;
     object-fit: cover;
@@ -50,7 +50,7 @@ button {
     border: 2px solid $backgroundColor;
     padding: 10px;
     letter-spacing: 1px;
-    margin-top: 8%;
+    margin-top: 0px;
 
     &:focus,
     &:active,
@@ -73,6 +73,7 @@ button {
 }
 
 .footerParent {
-    margin-top: 5%;
+    // margin-top: 5%;
+    margin-top: 15px;
 }
 
