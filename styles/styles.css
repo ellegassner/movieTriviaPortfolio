@@ -381,7 +381,7 @@ button:focus, button:active, button:hover {
 }
 
 .footerParent {
-  margin-top: 15%;
+  margin-top: 5%;
 }
 
 .quizInstructions {
@@ -525,5 +525,12 @@ button:focus, button:active, button:hover {
   }
   .quizChild .quizOptions .quizChoices {
     margin-left: 0;
+  }
+
+  .developers {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 }
