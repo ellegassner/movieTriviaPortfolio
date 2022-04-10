@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript change Event for Radio Buttons</title>
+</head>
+
+<body>
+  <div class="quizOptions">
+    <span>Status:</span>
+    <input type="radio" id="choiceText1" name="status">
+    <label for="pending">1</label>
+    <input type="radio" id="choiceText2" name="status">
+    <label for="resolved">2</label>
+    <input type="radio" id="choiceText3" name="status">
+    <label for="rejected">3</label>
+    <input type="radio" id="choiceText4" name="status">
+    <label for="rejected">4</label>
+    <input type="radio" id="choiceText5" name="status">
+    <label for="rejected">5</label>
+
+  </div>
+  <p id="result"></p>
+
+  <script>
+    let playerAnwser = document.querySelector('#result');
+    document.querySelector('.quizOptions').addEventListener('change', function (event) {
+      let target = event.target;
+      let message;
+      switch (target.id) {
+        case 'choiceText1':
+          message = 'The 1 radio button changed';
+          break;
+        case 'choiceText2':
+          message = 'The 2 radio button changed';
+          break;
+        case 'choiceText3':
+          message = 'The 3 radio button changed';
+          break;
+        case 'choiceText4':
+          message = 'The 4 radio button changed';
+          break;
+        case 'choiceText5':
+          message = 'The 5 radio button changed';
+          break;
+        default:
+          message = 'Select an alternative';
+      }
+      playerAnwser.textContent = message;
+    });
+  </script>
+</body>
+
+</html>
