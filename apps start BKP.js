@@ -41,7 +41,7 @@ app.player = {
   answer: 0,
 }
 
-app.questionNumber = 1;
+
 
 //#region specific functions
 // Method to return a random number until a max value
@@ -54,30 +54,17 @@ app.getRandomNumberFromInterval = (min) => {
   return Math.floor(Math.random() * (2022 - min + 1) + min);
 }
 
-// Method to get a Player's name
-app.getPlayerName = () => {
-  if(app.playerNameElement.value.length !== 0){
-    app.player.name = app.playerNameElement.value;
-  } else {
-    app.player.name = 'player one';
-  }
-
-  
-  return app.player.name;
+app.getUserName = () => {
+  app.userName = app.userNameElement.value;
+  return app.userName;
 }
 
-// Methgod to get a question
 app.getQuestion = () => {
   const index = app.getRandomNumber(app.questions.length - 1);
-  
-  
-  
-  app.questionNumber++;                                           //NEW!!!!!! Score/#Questions
-
-
-  console.log(`--------------END getQuestion------------------`);
   return app.questions[index];
 }
+
+
 
 // Method to get 5 Answers. 1 correct and 4 incorrect
 app.getAnswers = (movie) => {
@@ -106,19 +93,13 @@ app.getAnswers = (movie) => {
 
 app.checkAnswers = () => {
   console.log("player answer", app.playerAnswer);
-  console.log("right answer", app.answer);
-  console.log(`${app.player.name} before check score: ${app.player.score}`); 
-  console.log("Question Number", app.questionNumber);
+  console.log("right answer", app.answer)
+  if (parseInt(app.playerAnswer) === app.answer) {
+    
+    // app.player.score++;
 
-  if (parseInt(app.playerAnswer) === app.answer) {  
-    // Incresae score
-    app.player.score++;
-
-
-    console.log(`${app.player.name} after check score: ${app.player.score}`);  
-
-    app.messageH4.innerHTML = `Congrats, you are super smart!
-    Your score now is ${app.player.score} / 10
+    app.messageH4.innerHTML = `
+      Congrats, you are super smart!
       `
 
     // app.scoreCounter.innerHTML = `
@@ -131,12 +112,10 @@ app.checkAnswers = () => {
     // console.log("score right (from checkAnswers)", app.scoreCounter);
 
   } else {
-    // app.player.score;
-    console.log(`${app.player.name} score: ${app.player.score}`);  
+    app.player.score;
 
     app.messageH4.innerHTML = `
       No points for you, try again!
-      Your score now is ${app.player.score} / 10
       `
 
     // app.scoreCounter.innerHTML = `
@@ -148,7 +127,6 @@ app.checkAnswers = () => {
     console.log("wrong answer (from checkAnswers)", app.messageH4);
     // console.log("score wrong (from checkAnswers)", app.scoreCounter);
   }
-  console.log(`--------------END checkAnswers------------------`);
 }
 
 
@@ -164,11 +142,7 @@ app.displayQandA = (movie) => {
   
 
   const answersOptions = app.getAnswers(movie);
-
-
   console.log('Answer Options (from displayQandA):', answersOptions);
-
-
   app.getPoster(movie);
 
   //Display Options
@@ -210,7 +184,6 @@ app.displayQandA = (movie) => {
 
   app.quizDivElement.innerHTML = movieDescription;
   app.checkPlayersRadioButtonSelection(); /////**** now displaying this func */
-  console.log(`--------------END displayQandA------------------`);
   app.nextQuestion();
 }
 //#endregion
@@ -220,20 +193,15 @@ app.startGame = (movie) => {
   //event listener for the start button
   app.startButtonElement.addEventListener("click", function () {
     console.log('Game Started');
-
-    // 1.2 get the player's name
-    app.getPlayerName();
-    console.log(`${app.player.name} start score: ${app.player.score}`);  
-
-
-
     document.querySelector('h2').innerHTML = '';
     app.messageH4.innerHTML = '';
 
     const movie = app.getPopularMovies();
-    console.log('Start Start', movie);                          //Returning Undefined
+    console.log('Start Start', movie);
 
-    
+    // 1.2 get the userName
+    app.getUserName();
+    // // // // console.log('Player Name:', app.getUserName());
 
     // 2.1 get Question
     const quest = app.getQuestion();
@@ -262,7 +230,8 @@ app.startGame = (movie) => {
     // Call checkPlayersRadioButtonSelection Event Listener
     // app.checkPlayersRadioButtonSelection();
 
-    console.log(`--------------END startGame------------------`);
+    console.log(`--------------END startGame------------------
+      `);
   });
 
   app.nextQuestion = () => {
@@ -274,7 +243,6 @@ app.startGame = (movie) => {
       app.nextButtonElement = document.getElementById('nextQuestion');
       app.checkAnswers();
 
-      // Get 2nd+ movies
       app.newMovieObject = app.getPopularMovies();
       // console.log('Is this the new movie', app.newMovieObject);
 
@@ -287,7 +255,7 @@ app.startGame = (movie) => {
 
       
 
-      console.log(`--------------END nextQuestion------------------
+      // console.log(`--------------END nextQuestion------------------
       // `);
     });
   }
@@ -296,16 +264,21 @@ app.startGame = (movie) => {
 
 
   app.checkPlayersRadioButtonSelection = () => {
+    // let playerAnswer = document.querySelector('');
     document.querySelector('.quizOptions').addEventListener('change', function (event) {
       let usersOptionInForm = event.target;
     
       app.anwserConfirmationElement = document.getElementById('answerConfirmation');
 
-      app.anwserConfirmationElement.innerText = `You have selected ${usersOptionInForm.value}. To check your answer please press Next Question.`;
+      app.anwserConfirmationElement.innerText = `
+      You have selected ${usersOptionInForm.value}. To check your 
+      answer please press Next Question.`;
 
       app.nextButtonElement.disabled = false; 
       app.playerAnswer = usersOptionInForm.value;
-      console.log(`--------------END checkPlayersRadioButtonSelection EL------------------`);
+
+      
+      // return usersOptionInForm.value;
     });
   }
 
@@ -350,7 +323,7 @@ app.getPopularMovies = () => {
       // app.startGame(randomMovieObj);
       // app.nextQuestion(randomMovieObj);
     });
-    console.log(`--------------END getPopularMovies------------------`);
+
   // return randomMovieObj;
 }
 //#endregion
@@ -386,7 +359,7 @@ app.init = () => {
   // getPopularMovies();
   app.popularMovies = [];
 
-
+  // app.userName;
   // app.answer;
   
 
@@ -403,7 +376,7 @@ app.init = () => {
   ];
 
   // THERE IS A NAME FOR THIS ???????????????
-  app.playerNameElement = document.querySelector('input');
+  app.userNameElement = document.querySelector('input');
 
   app.startButtonElement = document.getElementById('startButton');
   app.nextButtonElement = document.getElementById('nextQuestion');

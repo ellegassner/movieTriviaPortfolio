@@ -290,9 +290,13 @@ h4 {
   text-align: center;
 }
 
+h3 {
+  margin: 0 auto;
+}
+
 h4 {
   color: #eeab41;
-  margin: 15px 0;
+  margin: 10px 0;
 }
 
 h5 {
@@ -361,7 +365,7 @@ button {
   border: 2px solid #2a0a4f;
   padding: 10px;
   letter-spacing: 1px;
-  margin-top: 8%;
+  margin-top: 0px;
 }
 button:focus, button:active, button:hover {
   color: #eeab41;
@@ -381,7 +385,7 @@ button:focus, button:active, button:hover {
 }
 
 .footerParent {
-  margin-top: 5%;
+  margin-top: 15px;
 }
 
 .quizInstructions {
@@ -399,7 +403,7 @@ button:focus, button:active, button:hover {
 
 .quizParent {
   background: #471f6a;
-  padding: 25px;
+  padding: 15px;
 }
 
 .quizChild {
@@ -436,6 +440,9 @@ button:focus, button:active, button:hover {
   font-size: 2.5rem;
   line-height: 4rem;
 }
+.quizChild .quizOptions .quizChoices input {
+  margin-top: 15px;
+}
 .quizChild .quizOptions .quizChoices label {
   display: inline-block;
   background-color: #ee693a;
@@ -458,7 +465,7 @@ button:focus, button:active, button:hover {
 }
 
 #nextQuestion {
-  margin: 10px auto;
+  margin: 25px auto 0 auto;
 }
 
 .developers {
@@ -521,10 +528,13 @@ button:focus, button:active, button:hover {
     margin: 0 auto;
   }
   .quizChild .quizOptions {
-    margin-top: 5%;
+    margin-top: 15px;
   }
   .quizChild .quizOptions .quizChoices {
     margin-left: 0;
+  }
+  .quizChild #answerConfirmation {
+    margin: 0 auto 0 auto;
   }
 
   .developers {
