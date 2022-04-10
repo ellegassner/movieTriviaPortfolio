@@ -149,7 +149,9 @@ app.displayQandA = (movie) => {
       <h3>When was the release date for this movie poster shown?</h3>
       <h4>${app.movieTitle}</h4>
       <div class="quizChild">
-          <img src="" alt="" id="moviePoster" class="moviePoster">
+        <div class="moviePoster">
+          <img id="moviePoster" src="" alt="" >
+        </div>
         <div class="quizOptions">
           <div class="quizChoices">
             <input type="radio" id="choiceText1" class="choiceOption" name="choice" value="${app.answerArray[0]}">
@@ -323,7 +325,7 @@ app.getPoster = () => {
     .then((results) => {
       const filePath = results.posters[0].file_path;
       const posterPath = `https://image.tmdb.org/t/p/original/${filePath}`;
-      const randomPoster = document.querySelector('.quizChild img');
+      const randomPoster = document.getElementById('moviePoster');
 
       randomPoster.src = posterPath;
       randomPoster.alt = `${app.movieTitle} poster image.`;
