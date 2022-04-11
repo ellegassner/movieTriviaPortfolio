@@ -74,7 +74,6 @@ app.getAnswers = (movie) => {
   // 2.3 Get correct and wrong options and store to an answerArray
   app.answerArray = [];
   app.answer = parseInt(movie.release_date.substring(0, 4));
-  console.log("Answer:", app.answer);
   app.answerArray.push(app.answer);
   // 2.4 generate 4 incorrect answers
   for (let wa = 1; wa <= 4; wa++) {
@@ -107,7 +106,7 @@ app.checkAnswers = () => {
 app.displayQandA = (movie) => {
   // Clean div.quiz
   app.startButtonElement.classList.add('btnDisappear');
-  // app.nextButtonElement.classList.add('btnAppear');
+  app.nextButtonElement.classList.add('btnAppear');
   app.quizDivElement.innerHTML = '';
   app.answerArray = [];      
   const answersOptions = app.getAnswers(movie);
@@ -160,7 +159,6 @@ app.displayQandA = (movie) => {
 //#region GameLogic
 app.startGame = () => {
   //event listener for the start button
-  console.log('Game Started');
   // 1.2 get the player's name
   app.getPlayerName();
   // console.log(`${app.player.name} start score: ${app.player.score}`);  
@@ -175,13 +173,12 @@ app.startGame = () => {
 }
 
 app.nextQuestion = () => {
-  console.log('sjsjs');
   // //Check answer
   app.checkAnswers();     
    // 2.1 get Question
   // const quest = app.getQuestion();
-  // app.nextButtonElement.disabled = true; 
-  // app.nextButtonElement = document.getElementById('nextQuestion');
+  app.nextButtonElement.disabled = true; 
+  app.nextButtonElement = document.getElementById('nextQuestion');
   // Get 2nd+ movie;
   app.newMovieObject = app.getPopularMovies();
 }
@@ -273,7 +270,7 @@ app.init = () => {
   //Removed start button and replaced with form
   app.startButtonElement = document.getElementById('startButton');
   app.nextButtonElement = document.getElementById('nextQuestion');
-  // app.nextButtonElement.classList.add('btnDisappear');
+  app.nextButtonElement.classList.add('btnDisappear');
   app.quizDivElement = document.getElementById('quiz');
   app.errorElement = document.getElementById('errorMessage');
   app.questionElement = document.querySelector('h3');
