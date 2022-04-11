@@ -504,13 +504,16 @@ button:focus, button:active, button:hover {
   margin-bottom: 0;
 }
 .theo p,
-.theo p,
-.elle p,
 .elle p {
   background: #471f6a;
   padding: 30px;
-  height: 80%;
+  height: 87%;
   margin-bottom: 25%;
+}
+.theo i,
+.elle i {
+  font-size: 4rem;
+  padding-top: 15px;
 }
 
 @media (max-width: 900px) {
