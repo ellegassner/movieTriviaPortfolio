@@ -39,7 +39,6 @@ app.player = {
   name: 'player1',
   score: 0,
 }
-
 app.questionNumber = 0;
 
 //#region specific functions
@@ -55,19 +54,15 @@ app.getRandomNumberFromInterval = (min) => {
 
 // Method to get a Player's name
 app.getPlayerName = () => {
-  // console.log(`--------------2. START getPlayerName------------------`);
-
-
   if(app.playerNameElement.value.length !== 0){
     app.player.name = app.playerNameElement.value;
   } else {
     app.player.name = 'player one';
   } 
-  
-  // console.log(`--------------2. END getPlayerName------------------`);
-  return app.player.name; }
+  return app.player.name; 
+}
 
-// Methgod to get a question
+// Method to get a question
 app.getQuestion = () => {
   const index = app.getRandomNumber(app.questions.length - 1);
   app.questionNumber++;    
@@ -81,11 +76,9 @@ app.getAnswers = (movie) => {
   app.answer = parseInt(movie.release_date.substring(0, 4));
   console.log("Answer:", app.answer);
   app.answerArray.push(app.answer);
-
   // 2.4 generate 4 incorrect answers
   for (let wa = 1; wa <= 4; wa++) {
     let newWrongAnswer = app.getRandomNumberFromInterval(app.answer - 10);
-
     // Check if wrong answer already exists in the array
     while (app.answerArray.includes(newWrongAnswer)) {
       newWrongAnswer = app.getRandomNumberFromInterval(app.answer - 10);
@@ -98,36 +91,14 @@ app.getAnswers = (movie) => {
 
 app.checkAnswers = () => {
   if (parseInt(app.playerAnswer) === app.answer) {  
-    // Incresae score
-    // app.player.score++;
+    // Increase score
+    app.player.score++;
 
-
-    // console.log(`${app.player.name} after check score: ${app.player.score}`);  
-
-    app.messageH4.innerHTML = `Congrats ${app.player.name}, you are super smart!
-      `
-
-    // app.scoreCounter.innerHTML = `
-    // Score: ${app.player.score}
-    // `
+    app.messageH4.innerHTML = `Congrats ${app.player.name}, you are super smart! Your score now is ${app.player.score}`
     app.messageParent.appendChild(app.messageH4);
-    // messageParent.appendChild(app.scoreCounter);
-
-
   } else {
-    // app.player.score;
-    // console.log(`${app.player.name} score: ${app.player.score}`);  
-
-    app.messageH4.innerHTML = `
-      Sorry ${app.player.name}, wrong answer. The correct answer was ${app.answer} - try again!
-      `
-
-    // app.scoreCounter.innerHTML = `
-    // Score: ${app.player.score}
-    // `
-
+    app.messageH4.innerHTML = `Sorry ${app.player.name}, wrong answer. The correct answer was ${app.answer}. Your score remains the same: ${app.player.score} - try again!`
     app.messageParent.appendChild(app.messageH4);
-    // messageParent.appendChild(app.scoreCounter);
   }
 }
 
@@ -136,12 +107,11 @@ app.checkAnswers = () => {
 app.displayQandA = (movie) => {
   // Clean div.quiz
   app.startButtonElement.classList.add('btnDisappear');
-  app.nextButtonElement.classList.add('btnAppear');
+  // app.nextButtonElement.classList.add('btnAppear');
   app.quizDivElement.innerHTML = '';
   app.answerArray = [];      
-
   const answersOptions = app.getAnswers(movie);
-
+  // Setting the poster
   app.getPoster(movie);
 
   //Display Options
@@ -183,65 +153,50 @@ app.displayQandA = (movie) => {
 
   app.quizDivElement.innerHTML = movieDescription;
   app.checkPlayersRadioButtonSelection(); 
-  app.nextQuestion();
+  // app.nextQuestion(); -> This appears to be the issue
 }
-//#endregion
 
+//#endregion
 //#region GameLogic
-app.startGame = (movie) => {
+app.startGame = () => {
   //event listener for the start button
-  app.startButtonElement.addEventListener("click", function () {
-    console.log('Game Started');
+  console.log('Game Started');
+  // 1.2 get the player's name
+  app.getPlayerName();
+  // console.log(`${app.player.name} start score: ${app.player.score}`);  
+  document.querySelector('h2').innerHTML = '';
+  app.messageH4.innerHTML = '';
+  const movie = app.getPopularMovies();
+  // 2.1 get Question
+  const quest = app.getQuestion();
+  // Append Question
+  const question = document.createElement('h2');
+  question.innerText = quest;
+}
 
-    // 1.2 get the player's name
-    app.getPlayerName();
-    // console.log(`${app.player.name} start score: ${app.player.score}`);  
+app.nextQuestion = () => {
+  console.log('sjsjs');
+  // //Check answer
+  app.checkAnswers();     
+   // 2.1 get Question
+  // const quest = app.getQuestion();
+  // app.nextButtonElement.disabled = true; 
+  // app.nextButtonElement = document.getElementById('nextQuestion');
+  // Get 2nd+ movie;
+  app.newMovieObject = app.getPopularMovies();
+}
 
-    document.querySelector('h2').innerHTML = '';
-    app.messageH4.innerHTML = '';
-
-    const movie = app.getPopularMovies();
-
-    // 2.1 get Question
-    const quest = app.getQuestion();
-
-    // Append Question
-    const question = document.createElement('h2');
-    question.innerText = quest;
+app.checkPlayersRadioButtonSelection = () => {
+  document.querySelector('.quizOptions').addEventListener('change', function (event) {
+    let usersOptionInForm = event.target;
+  
+    app.anwserConfirmationElement = document.getElementById('answerConfirmation');
+    app.anwserConfirmationElement.innerText = `${app.player.name}, you have selected ${usersOptionInForm.value}. To check your answer please press Next Question.`;
+    app.nextButtonElement.disabled = false; 
+    app.playerAnswer = usersOptionInForm.value;
   });
-
-  app.nextQuestion = () => {
-    app.nextButtonElement.addEventListener("click", function () {
-      //Check answer
-      app.checkAnswers();     
-
-       // 2.1 get Question
-      const quest = app.getQuestion();
-
-      app.nextButtonElement.disabled = true; 
-      app.nextButtonElement = document.getElementById('nextQuestion');
-
-      // Get 2nd+ movie;
-      app.newMovieObject = app.getPopularMovies();
-    });
-  }
-
-  app.checkPlayersRadioButtonSelection = () => {
-    document.querySelector('.quizOptions').addEventListener('change', function (event) {
-      let usersOptionInForm = event.target;
-    
-      app.anwserConfirmationElement = document.getElementById('answerConfirmation');
-
-      app.anwserConfirmationElement.innerText = `${app.player.name}, you have selected ${usersOptionInForm.value}. To check your answer please press Next Question.`;
-
-      app.nextButtonElement.disabled = false; 
-      app.playerAnswer = usersOptionInForm.value;
-    });
-  }
 }
 //#endregion
-
-
 //#region Get Popular Movies
 app.getPopularMovies = () => {
   //Getting random number for the page
@@ -256,22 +211,17 @@ app.getPopularMovies = () => {
     include_video: false,
     page: pageNumber,
   });
-
   fetch(movieUrl)
     .then((response) => {
       return response.json();
     })
     .then((movieData) => {
-
       //2.2 select random movie
       app.popularMovies = movieData.results;
-
       let  randomMovieObj = app.popularMovies[app.getRandomNumber(app.popularMovies.length)];
-
       // Creating movieId and movieTitle variable to reuse for poster data
       app.movieId = randomMovieObj.id;
       app.movieTitle = randomMovieObj.title;
-
       //Display Movie
       app.displayQandA(randomMovieObj);      
     });
@@ -303,11 +253,8 @@ app.getPoster = () => {
     })
 }
 //#endregion
-
-
 app.init = () => {
   app.popularMovies = [];
-
   app.questionType1 = "When was the release date for this movie poster shown?";
   app.questionType2 = "abc";
   app.questionType3 = "def";
@@ -320,22 +267,29 @@ app.init = () => {
     app.questionType4,
   ];
 
-  // THERE IS A NAME FOR THIS ???????????????
+  // Caching Selectors
   app.playerNameElement = document.querySelector('input');
-
+  app.mainForm = document.querySelector('form')
+  //Removed start button and replaced with form
   app.startButtonElement = document.getElementById('startButton');
   app.nextButtonElement = document.getElementById('nextQuestion');
-  app.nextButtonElement.classList.add('btnDisappear');
-
+  // app.nextButtonElement.classList.add('btnDisappear');
   app.quizDivElement = document.getElementById('quiz');
   app.errorElement = document.getElementById('errorMessage');
-
   app.questionElement = document.querySelector('h3');
   app.messageParent = document.querySelector('.quizResult');
   app.messageH4 = document.createElement('h4');
 
-  //Game Flow Starts here  
-  app.startGame();
+  // Applying Event handlers
+  app.mainForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    app.startGame();
+  });
+
+  app.nextButtonElement.addEventListener("click", function (e) {
+    e.preventDefault();
+    app.nextQuestion();
+  });
 }
 
 app.init();
