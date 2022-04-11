@@ -119,7 +119,7 @@ app.checkAnswers = () => {
     // console.log(`${app.player.name} score: ${app.player.score}`);  
 
     app.messageH4.innerHTML = `
-      Sorry ${app.player.name}, wrong answer - try again!
+      Sorry ${app.player.name}, wrong answer. The correct answer was ${app.answer} - try again!
       `
 
     // app.scoreCounter.innerHTML = `

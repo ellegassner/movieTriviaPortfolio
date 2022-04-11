@@ -24,11 +24,15 @@
         margin-bottom: 0;
     }
     
-    p,
     p {
         background: $textBackgroundColor;
         padding: 30px;
         height: 80%;
         margin-bottom: 25%;
     }
+
+    i {
+        font-size: 35px;
+        padding-top: 15px;
+    }    
 }
