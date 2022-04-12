@@ -9,19 +9,17 @@
 2. Use Data (inside a loop)
 2.1 Determine our questions
 2.2 Select one random movie
+  - Get Poster from second API endpoint with random movie ID
 2.3 Get correct and wrong answers and store to an answerArray
 2.4 Get 4 incorrect answers and store to the answerArray
 2.5 Do a check with user answer for correct stored variable answer
    - If answer is correct them score++
    - Confirm your answer (button)
-   - If question number is equal 10: Send to end game page
-   - Else: Next question
+   - & Next question
 3. Display Data
 3.1 Display data into the question page
-3.2 Display green icon for correct answers
-3.3 Display red cross for incorrect answers
-3.4 Display score in question page
-3.5 Display final score into end game page
+3.2 Display text & score for correct answers
+3.3 Display text & score for incorrect answers
 */
 //#endregion
 
@@ -92,10 +90,11 @@ app.checkAnswers = () => {
   if (parseInt(app.playerAnswer) === app.answer) {  
     // Increase score
     app.player.score++;
-
+    // Append message
     app.messageH4.innerHTML = `Congrats ${app.player.name}, you are super smart! Your score now is ${app.player.score}`
     app.messageParent.appendChild(app.messageH4);
   } else {
+    // Append message
     app.messageH4.innerHTML = `Sorry ${app.player.name}, wrong answer. The correct answer was ${app.answer}. Your score remains the same: ${app.player.score} - try again!`
     app.messageParent.appendChild(app.messageH4);
   }
@@ -152,7 +151,6 @@ app.displayQandA = (movie) => {
 
   app.quizDivElement.innerHTML = movieDescription;
   app.checkPlayersRadioButtonSelection(); 
-  // app.nextQuestion(); -> This appears to be the issue
 }
 
 //#endregion
@@ -161,7 +159,6 @@ app.startGame = () => {
   //event listener for the start button
   // 1.2 get the player's name
   app.getPlayerName();
-  // console.log(`${app.player.name} start score: ${app.player.score}`);  
   document.querySelector('h2').innerHTML = '';
   app.messageH4.innerHTML = '';
   const movie = app.getPopularMovies();
@@ -176,13 +173,13 @@ app.nextQuestion = () => {
   // //Check answer
   app.checkAnswers();     
    // 2.1 get Question
-  // const quest = app.getQuestion();
   app.nextButtonElement.disabled = true; 
   app.nextButtonElement = document.getElementById('nextQuestion');
   // Get 2nd+ movie;
   app.newMovieObject = app.getPopularMovies();
 }
 
+// Check players answers with correct answer values
 app.checkPlayersRadioButtonSelection = () => {
   document.querySelector('.quizOptions').addEventListener('change', function (event) {
     let usersOptionInForm = event.target;
@@ -226,6 +223,7 @@ app.getPopularMovies = () => {
 //#endregion
 
 //#region GetPoster
+// Getting poster from random movie ID
 app.getPoster = () => {
   app.moviePosterUrl = `${app.apiUrl}/movie/${app.movieId}/images`; 
 
