@@ -303,11 +303,11 @@ h4 {
 h5 {
   font-family: "Roboto", sans-serif;
   font-size: 2rem;
-  line-height: 4rem;
+  line-height: 2.5rem;
   color: #F0A500;
   text-align: center;
   padding: 0 25px;
-  margin-top: 25px;
+  margin: 0 0 10px 0;
 }
 
 .footerParent a,
