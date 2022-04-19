@@ -237,7 +237,7 @@ body {
   line-height: 3rem;
   letter-spacing: 2px;
   color: linen;
-  background-color: #2a0a4f;
+  background-color: #02111d;
   text-align: center;
 }
 
@@ -249,7 +249,7 @@ label .userName {
 }
 
 input {
-  color: #2a0a4f;
+  color: #02111d;
 }
 
 .skipLink {
@@ -258,7 +258,7 @@ input {
   top: 0px;
   z-index: 90;
   background-color: linen;
-  color: #eeab41;
+  color: #F0A500;
 }
 
 .skipLink:focus {
@@ -266,17 +266,18 @@ input {
 }
 
 h1 {
-  color: #ee693a;
+  color: #F0A500;
   text-transform: uppercase;
   font-size: 3rem;
   margin-right: 20%;
 }
 
 h2 {
-  font-family: "Bungee Shade", cursive;
+  font-family: "Bangers", cursive;
   font-size: 6rem;
+  text-transform: uppercase;
   line-height: 7rem;
-  color: #eeab41;
+  color: #F0A500;
   text-align: center;
   padding-top: 25px;
   margin: 0;
@@ -295,15 +296,18 @@ h3 {
 }
 
 h4 {
-  color: #eeab41;
+  color: #F0A500;
   margin: 10px 0;
 }
 
 h5 {
   font-family: "Roboto", sans-serif;
-  font-size: 3rem;
+  font-size: 2rem;
   line-height: 4rem;
+  color: #F0A500;
   text-align: center;
+  padding: 0 25px;
+  margin-top: 25px;
 }
 
 .footerParent a,
@@ -330,18 +334,43 @@ body {
       -ms-flex-align: center;
           align-items: center;
 }
-.navBar .logo {
-  font-size: 5rem;
-  color: #ee693a;
+.navBar .branding {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
 }
-.navBar a {
-  color: #2a0a4f;
+.navBar .branding .logo {
+  font-size: 5rem;
+  color: #F0A500;
+  -ms-flex-preferred-size: 10%;
+      flex-basis: 10%;
+}
+.navBar .branding a {
+  color: #02111d;
   font-weight: 700;
+  background-color: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-preferred-size: 80%;
+      flex-basis: 80%;
 }
 .navBar .devPage {
+  color: #02111d;
+  font-weight: 700;
   font-size: 2rem;
-  background-color: #ee693a;
+  background-color: #F0A500;
   padding: 15px;
+  -ms-flex-preferred-size: 45%;
+      flex-basis: 45%;
 }
 
 .wrapper {
@@ -354,23 +383,23 @@ img {
   width: 250px;
   height: 350px;
   display: block;
-  border: 3px solid #ee693a;
+  border: 3px solid #F0A500;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
 button {
-  color: #2a0a4f;
-  background-color: #eeab41;
-  border: 2px solid #2a0a4f;
+  color: #02111d;
+  background-color: #F0A500;
+  border: 2px solid #02111d;
   padding: 10px;
   letter-spacing: 1px;
   margin-top: 0px;
 }
 button:focus, button:active, button:hover {
-  color: #eeab41;
-  background-color: #2a0a4f;
-  border: 2px solid #eeab41;
+  color: #F0A500;
+  background-color: #02111d;
+  border: 2px solid #F0A500;
   cursor: pointer;
 }
 
@@ -381,15 +410,21 @@ button:focus, button:active, button:hover {
 
 .btnAppear {
   display: block;
-  border: 2px solid #eeab41;
+  border: 2px solid #F0A500;
 }
 
 .footerParent {
   margin-top: 15px;
 }
 
+.homeParent {
+  background-color: #082032;
+  margin-top: 25px;
+  padding-bottom: 25px;
+}
+
 .quizInstructions {
-  background-color: #471f6a;
+  background-color: #082032;
   padding: 15px;
 }
 .quizInstructions form {
@@ -402,7 +437,7 @@ button:focus, button:active, button:hover {
 }
 
 .quizParent {
-  background: #471f6a;
+  background: #082032;
   padding: 15px;
 }
 
@@ -445,17 +480,17 @@ button:focus, button:active, button:hover {
 }
 .quizChild .quizOptions .quizChoices label {
   display: inline-block;
-  background-color: #ee693a;
+  background-color: #334756;
   margin: 0 10px 15px 15px;
   width: 100%;
   text-align: left;
   padding-left: 15px;
 }
 .quizChild .quizOptions .quizChoices label.correctAnswer {
-  background-color: #eeab41;
+  background-color: #F0A500;
 }
 .quizChild .quizOptions .textConfirmation {
-  margin: 0 auto 0 50px;
+  margin: 0 auto;
 }
 .quizChild .quizOptions .submitOptions {
   margin: 50px 0 0 100px;
@@ -475,6 +510,10 @@ button:focus, button:active, button:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -505,7 +544,7 @@ button:focus, button:active, button:hover {
 }
 .theo p,
 .elle p {
-  background: #471f6a;
+  background: #082032;
   padding: 30px;
   height: 87%;
   margin-bottom: 25%;
@@ -542,9 +581,9 @@ button:focus, button:active, button:hover {
 
   .developers {
     -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
   }
 }
 @media (max-width: 600px) {
@@ -552,39 +591,46 @@ button:focus, button:active, button:hover {
     width: 90%;
   }
 
-  .navBar {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+  .navBar .branding {
+    width: 90%;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
   }
-  .navBar .logo {
-    font-size: 3rem;
-    color: #ee693a;
+  .navBar .branding .logo {
+    display: none;
   }
-  .navBar a {
-    color: #2a0a4f;
+  .navBar .branding a {
+    color: #02111d;
     font-weight: 700;
+  }
+  .navBar .branding a h1 {
+    font-size: 2rem;
+    margin-right: 0;
+    line-height: 2.25rem;
+    text-align: center;
   }
   .navBar .devPage {
     font-size: 1.5rem;
-    background-color: #ee693a;
-    padding: 6px;
+    line-height: 2rem;
+    background-color: #F0A500;
+    padding: 2px;
   }
 
-  h1 {
-    font-size: 2.5rem;
-    margin-right: 0;
+  .userName {
+    margin: 10px;
   }
 
   h2 {
-    font-size: 2.5rem;
-    line-height: 3rem;
+    font-size: 3.5rem;
+    line-height: 4rem;
+    letter-spacing: 2.5px;
     margin-bottom: 10px;
   }
 
   h3 {
     font-size: 1.8rem;
+    line-height: 2rem;
   }
 
   p {
@@ -592,8 +638,20 @@ button:focus, button:active, button:hover {
     line-height: 2rem;
   }
 
+  .quizChild img {
+    width: 150px;
+    height: 200px;
+  }
   .quizChild .quizOptions .quizChoices {
     font-size: 2rem;
+    line-height: 3rem;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .quizChild .quizOptions .quizChoices label {
+    margin: 0 0 5px 5px;
+    width: 50%;
   }
   .quizChild .quizOptions .textConfirmation {
     margin-left: 0;
