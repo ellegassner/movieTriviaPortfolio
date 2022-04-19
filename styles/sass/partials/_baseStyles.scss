@@ -11,21 +11,34 @@ body {
     padding-top: 15px;
     align-items: center;
 
-    .logo {
-        font-size: 5rem;
-        color: $correctAnswerColor;
-    }
+    .branding {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-basis: 50%;
 
-    a {
-        color: $backgroundColor;
-        font-weight: 700;
+        .logo {
+            font-size: 5rem;
+            color: $navColor;
+            flex-basis: 10%;
+        }
+
+        a {
+            color: $backgroundColor;
+            font-weight: 700;
+            background-color: none;
+            display: flex;
+            flex-basis: 80%;
+        }    
     }
 
     .devPage {
+        color: $backgroundColor;
+        font-weight: 700;
         font-size: 2rem;
-        background-color: $correctAnswerColor;
+        background-color: $navColor;
         padding: 15px;
-
+        flex-basis: 45%;
     }
 }
 
@@ -40,7 +53,7 @@ img {
     width: 250px;
     height: 350px;
     display: block;
-    border: 3px solid $correctAnswerColor;
+    border: 3px solid $styleFontColor;
     object-fit: cover;
 }
 
