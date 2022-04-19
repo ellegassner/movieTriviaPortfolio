@@ -91,12 +91,12 @@ app.checkAnswers = () => {
     // Increase score
     app.player.score++;
     // Append message
-    app.messageH4.innerHTML = `Congrats ${app.player.name}, you are super smart! Your score now is ${app.player.score}`
-    app.messageParent.appendChild(app.messageH4);
+    app.messageH5.innerHTML = `Congrats ${app.player.name}, you are super smart! Your score now is ${app.player.score}`
+    app.messageParent.appendChild(app.messageH5);
   } else {
     // Append message
-    app.messageH4.innerHTML = `Sorry ${app.player.name}, wrong answer. The correct answer was ${app.answer}. Your score remains the same: ${app.player.score} - try again!`
-    app.messageParent.appendChild(app.messageH4);
+    app.messageH5.innerHTML = `Sorry ${app.player.name}, wrong answer. The correct answer was ${app.answer}. Your score remains the same: ${app.player.score} - try again!`
+    app.messageParent.appendChild(app.messageH5);
   }
 }
 
@@ -160,7 +160,7 @@ app.startGame = () => {
   // 1.2 get the player's name
   app.getPlayerName();
   document.querySelector('h2').innerHTML = '';
-  app.messageH4.innerHTML = '';
+  app.messageH5.innerHTML = '';
   const movie = app.getPopularMovies();
   // 2.1 get Question
   const quest = app.getQuestion();
@@ -273,7 +273,7 @@ app.init = () => {
   app.errorElement = document.getElementById('errorMessage');
   app.questionElement = document.querySelector('h3');
   app.messageParent = document.querySelector('.quizResult');
-  app.messageH4 = document.createElement('h4');
+  app.messageH5 = document.createElement('h5');
 
   // Applying Event handlers
   app.mainForm.addEventListener("submit", function (e) {

@@ -32,39 +32,56 @@
         width: 90%;
     }
 
+
     .navBar {
-        flex-direction: column;
 
-        .logo {
-            font-size: 3rem;
-            color: $navColor
+        .branding {
+            width: 90%;
+            justify-content: space-evenly;
+
+            .logo {
+                // font-size: 3rem;
+                // color: $navColor;
+                display: none;
+            }
+
+            a {
+                color: $backgroundColor;
+                font-weight: 700;
+
+                h1 {
+                font-size: 2rem;
+                margin-right: 0;
+                line-height: 2.25rem;
+                text-align: center;
+                }
+            }
         }
 
-        a {
-            color: $backgroundColor;
-            font-weight: 700;
+        .devPage {
+            font-size: 1.5rem;
+            line-height: 2rem;
+            background-color: $navColor;
+            padding: 2px;
         }
-
-    .devPage {
-        font-size: 1.5rem;
-        background-color: $navColor;
-        padding: 6px;
     }
 
+    .userName {
+        margin: 10px;
     }
-    h1 {
-        font-size: 2.5rem;
-        margin-right: 0;
-    }
+
+
 
     h2 {
-        font-size: 2.5rem;
-        line-height: 3rem;
+        font-size: 3.5rem;
+        line-height: 4rem;
+        letter-spacing: 2.5px;
         margin-bottom: 10px;
     }
 
     h3 {
         font-size: 1.8rem;
+        line-height: 2rem;
     }
 
     p {
@@ -73,9 +90,21 @@
     }
 
     .quizChild {
+        img {
+            width: 150px;
+            height: 200px;
+        }
+
         .quizOptions {
             .quizChoices {
                 font-size: 2rem;
+                line-height: 3rem;
+                justify-content: center;
+
+                label {
+                    margin: 0 0 5px 5px;
+                    width: 50%;
+                }
             }
 
             .textConfirmation {
@@ -83,12 +112,4 @@
             }
         }
     }
-
-
-    // h3 {
-    //     font-family: $styleFont;
-    //     font-size: 3rem;
-    //     color: $styleFontColor;
-    //     margin-top: 15px;
-    // }
 }
