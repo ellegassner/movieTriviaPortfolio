@@ -13,7 +13,7 @@ body {
 
     .logo {
         font-size: 5rem;
-        color: $correctAnswerColor;
+        color: $navColor;
     }
 
     a {
@@ -23,7 +23,7 @@ body {
 
     .devPage {
         font-size: 2rem;
-        background-color: $correctAnswerColor;
+        background-color: $navColor;
         padding: 15px;
 
     }
@@ -40,7 +40,7 @@ img {
     width: 250px;
     height: 350px;
     display: block;
-    border: 3px solid $correctAnswerColor;
+    border: 3px solid $styleFontColor;
     object-fit: cover;
 }
 

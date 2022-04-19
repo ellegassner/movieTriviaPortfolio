@@ -23,7 +23,7 @@
     }
 
     .developers {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 }
 
@@ -37,7 +37,7 @@
 
         .logo {
             font-size: 3rem;
-            color: $correctAnswerColor;
+            color: $navColor
         }
 
         a {
@@ -47,7 +47,7 @@
 
     .devPage {
         font-size: 1.5rem;
-        background-color: $correctAnswerColor;
+        background-color: $navColor;
         padding: 6px;
     }
 
