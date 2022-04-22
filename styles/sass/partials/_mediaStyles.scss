@@ -40,8 +40,6 @@
             justify-content: space-evenly;
 
             .logo {
-                // font-size: 3rem;
-                // color: $navColor;
                 display: none;
             }
 
@@ -53,7 +51,7 @@
                 font-size: 2rem;
                 margin-right: 0;
                 line-height: 2.25rem;
-                text-align: center;
+                text-align: left;
                 }
             }
         }
@@ -111,5 +109,10 @@
                 margin-left: 0;
             }
         }
+    }
+
+    .footerParent a,
+    .footerParent p {
+        line-height: 2rem;
     }
 }

@@ -608,7 +608,7 @@ button:focus, button:active, button:hover {
     font-size: 2rem;
     margin-right: 0;
     line-height: 2.25rem;
-    text-align: center;
+    text-align: left;
   }
   .navBar .devPage {
     font-size: 1.5rem;
@@ -655,5 +655,10 @@ button:focus, button:active, button:hover {
   }
   .quizChild .quizOptions .textConfirmation {
     margin-left: 0;
+  }
+
+  .footerParent a,
+.footerParent p {
+    line-height: 2rem;
   }
 }
