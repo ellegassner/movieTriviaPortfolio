@@ -91,11 +91,11 @@ app.checkAnswers = () => {
     // Increase score
     app.player.score++;
     // Append message
-    app.messageH5.innerHTML = `Congrats ${app.player.name}, you are super smart! Your score now is ${app.player.score}`
+    app.messageH5.innerHTML = `Congrats, you chose right! Your score now is ${app.player.score}`
     app.messageParent.appendChild(app.messageH5);
   } else {
     // Append message
-    app.messageH5.innerHTML = `Sorry ${app.player.name}, wrong answer. The correct answer was ${app.answer}. Your score remains the same: ${app.player.score} - try again!`
+    app.messageH5.innerHTML = `Wrong answer. The correct answer was ${app.answer}. Your score remains the same: ${app.player.score} - try again!`
     app.messageParent.appendChild(app.messageH5);
   }
 }
@@ -143,7 +143,7 @@ app.displayQandA = (movie) => {
             <label for="choiceText5">${app.answerArray[4]}</label>
           </div>   
           <div class="textConfirmation">
-              <p id="answerConfirmation">${app.player.name} select an option!</p>
+              <p id="answerConfirmation">${app.player.name}, select an option!</p>
           </div> 
         </div>
         </section>
@@ -185,7 +185,7 @@ app.checkPlayersRadioButtonSelection = () => {
     let usersOptionInForm = event.target;
   
     app.anwserConfirmationElement = document.getElementById('answerConfirmation');
-    app.anwserConfirmationElement.innerText = `${app.player.name}, you have selected ${usersOptionInForm.value}. To check your answer please press Next Question.`;
+    app.anwserConfirmationElement.innerText = `You have selected ${usersOptionInForm.value}. Press Next Question to check your answer.`;
     app.nextButtonElement.disabled = false; 
     app.playerAnswer = usersOptionInForm.value;
   });
@@ -199,10 +199,11 @@ app.getPopularMovies = () => {
   const movieUrl = new URL(movieEndPoint);
   movieUrl.search = new URLSearchParams({
     api_key: app.apiKey,
-    language: 'en-US',
     sort_by: 'popularity.desc',
-    include_adult: false,
-    include_video: false,
+    certification_country: 'usa',
+    with_original_language: 'en',
+    adult: false,
+    video: false,
     page: pageNumber,
   });
   fetch(movieUrl)
@@ -230,6 +231,7 @@ app.getPoster = () => {
   const posterUrl = new URL(app.moviePosterUrl);
   posterUrl.search = new URLSearchParams({
     api_key: app.apiKey,
+    language: 'en',
   })
 
   fetch(posterUrl)
